@@ -32,4 +32,9 @@ public class UIHandler : MonoBehaviour
         MenuInicial.SetActive(false); // desativa o menu inicial
         gameStarted = true; // ativa a animação de entrada
     }
+
+    public void OnQuit() { //Função a ser chamada ao clicar o botão "Quit Game"
+        Debug.Log("Fechando"); //teste para editor
+        Application.Quit();
+    }
 }
