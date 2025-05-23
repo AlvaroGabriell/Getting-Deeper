@@ -7,9 +7,11 @@ public class UIHandler : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public GameObject MenuInicial;
+    public GameObject MenuSettings;
     public GameObject player;
     bool gameStarted = false;
     bool playerReachedPosition = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +35,22 @@ public class UIHandler : MonoBehaviour
         gameStarted = true; // ativa a animação de entrada
     }
 
-    public void OnQuit() { //Função a ser chamada ao clicar o botão "Quit Game"
+    // Função chamada quando o jogador clica no botão "Settings"
+    public void OnSettings()
+    {
+        MenuSettings.SetActive(true); // ativa o menu de configurações
+        MenuInicial.SetActive(false); // desativa o menu inicial
+    }
+
+    public void OnQuit()
+    { //Função a ser chamada ao clicar o botão "Quit Game"
         Debug.Log("Fechando"); //teste para editor
         Application.Quit();
+    }
+
+    public void OnBack()
+    {
+        MenuSettings.SetActive(false); // desativa o menu de configurações
+        MenuInicial.SetActive(true); // ativa o menu inicial
     }
 }

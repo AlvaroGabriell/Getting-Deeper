@@ -8,14 +8,22 @@ using UnityEngine.InputSystem.Controls;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject player, groundCheck;
     public CinemachineVirtualCamera cam;
     SpriteRenderer sr;
     Rigidbody2D rb;
-    public float moveSpeed = 3f;
+
+    [Header("Player Movement")]
+    public float moveSpeed = 3f, jumpForce = 5f;
     float horizontalMovement;
     bool keyShift = false, keyControl = false;
+
+    [Header("Cinematic")]
     public Transform playerTargetPosition;
+
+    [Header("Ground Check")]
+    public LayerMask groundLayer;
+    public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +82,32 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //Chamado quando o jogador pressiona a tecla de pular
+    public void Pular(InputAction.CallbackContext context)
+    {
+        if (IsGrounded())
+        {
+            if (context.performed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            }
+            else if (context.canceled)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce * 0.5f);
+            }
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        // Verifica se o jogador está tocando o chão
+        if (Physics2D.OverlapBox(groundCheck.transform.position, groundCheckSize, 0f, groundLayer))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    //Chamado quando o jogador pressiona a tecla de pular
     //TODO: Implementar pulo
 
     //Chamado quando o jogador pressiona o botão de "Play" no menu inicial
@@ -91,12 +125,18 @@ public class PlayerMovement : MonoBehaviour
         {
             cam.enabled = false;
             cam.Follow = player.transform;
-            cam.transform.position.Set(-17.35f,-0.3472534f, -10f);
+            cam.transform.position.Set(-17.35f, -0.3472534f, -10f);
             cam.enabled = true;
             player.GetComponent<PlayerInput>().enabled = true;
             return true;
         }
 
         return false;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(groundCheck.transform.position, groundCheckSize);
     }
 }
