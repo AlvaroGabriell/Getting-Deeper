@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer sr;
     Rigidbody2D rb;
 
+    public Animator animator;
+
     [Header("Player Movement")]
     public float moveSpeed = 3f, jumpForce = 5f;
     float horizontalMovement;
@@ -25,11 +27,24 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
 
+
+    private void OnEnable()
+    {
+        PlayerVida.PersonagemMorre += InterromperMovimento;
+    }
+
+    private void OnDisable()
+    {
+        PlayerVida.PersonagemMorre -= InterromperMovimento;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         sr = player.GetComponent<SpriteRenderer>();
         rb = player.GetComponent<Rigidbody2D>();
+
+        AtivarMovimento();
     }
 
     // This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
@@ -52,7 +67,8 @@ public class PlayerMovement : MonoBehaviour
     /// Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
-
+        animator.SetFloat("velocidade_jogador", Mathf.Abs(horizontalMovement));
+        IsGrounded();
     }
 
     //Chamado quando o jogador pressiona alguma tecla de movimento
@@ -84,11 +100,13 @@ public class PlayerMovement : MonoBehaviour
     //Chamado quando o jogador pressiona a tecla de pular
     public void Pular(InputAction.CallbackContext context)
     {
+        animator.SetBool("estaPulando",true);
         if (IsGrounded())
         {
             if (context.performed)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                animator.SetBool("estaPulando", false);
             }
             else if (context.canceled)
             {
@@ -102,8 +120,9 @@ public class PlayerMovement : MonoBehaviour
         // Verifica se o jogador está tocando o chão
         if (Physics2D.OverlapBox(groundCheck.transform.position, groundCheckSize, 0f, groundLayer))
         {
+            animator.SetBool("estaPulando",false);
             return true;
-        }
+        }    
         return false;
     }
 
@@ -138,5 +157,17 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawCube(groundCheck.transform.position, groundCheckSize);
+    }
+
+    private void InterromperMovimento()
+    {
+        animator.enabled = false;
+        rb.bodyType = RigidbodyType2D.Static; //interromper movimentação quando Beth morre e tela de game over é mostrada
+    }
+
+    private void AtivarMovimento()
+    { //após gameover, reativar movimentos e animações
+        animator.enabled = true;
+        rb.bodyType = RigidbodyType2D.Dynamic; //interromper movimentação quando Beth morre e tela de game over é mostrada
     }
 }

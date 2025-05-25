@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class UIHandler : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public GameObject MenuInicial;
     public GameObject MenuSettings;
+    public GameObject GameOverMenu;
     public GameObject player;
     bool gameStarted = false;
     bool playerReachedPosition = false;
 
+    private void OnEnable()
+    {
+        PlayerVida.PersonagemMorre += chamarGameOver;
+    }
 
+    private void OnDisable()
+    {
+        PlayerVida.PersonagemMorre -= chamarGameOver;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -52,5 +62,15 @@ public class UIHandler : MonoBehaviour
     {
         MenuSettings.SetActive(false); // desativa o menu de configurações
         MenuInicial.SetActive(true); // ativa o menu inicial
+    }
+
+    public void chamarGameOver()
+    {
+        GameOverMenu.SetActive(true);
+    }
+
+    public void RetryJogo()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
