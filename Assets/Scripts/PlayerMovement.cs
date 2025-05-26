@@ -9,11 +9,11 @@ using UnityEngine.InputSystem.Controls;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject player, groundCheck;
-    public CinemachineVirtualCamera cam;
+    public Camera mainCamera;
+    public Camera staticCamera;
+    public Animator animator;
     SpriteRenderer sr;
     Rigidbody2D rb;
-
-    public Animator animator;
 
     [Header("Player Movement")]
     public float moveSpeed = 3f, jumpForce = 5f;
@@ -67,8 +67,23 @@ public class PlayerMovement : MonoBehaviour
     /// Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
-        animator.SetFloat("velocidade_jogador", Mathf.Abs(horizontalMovement));
-        IsGrounded();
+        animator.SetFloat("velocidadeJogador", Mathf.Abs(horizontalMovement));
+        animator.SetFloat("velocidadeY", rb.velocity.y);
+        if (keyControl && !keyShift)
+        {
+            animator.SetBool("agachado", keyControl);
+            animator.SetBool("correndo", false);
+        }
+        else if (keyShift && !keyControl)
+        {
+            animator.SetBool("correndo", keyShift);
+            animator.SetBool("agachado", false);
+        }
+        else
+        {
+            animator.SetBool("correndo", false);
+            animator.SetBool("agachado", false);
+        }
     }
 
     //Chamado quando o jogador pressiona alguma tecla de movimento
@@ -100,17 +115,18 @@ public class PlayerMovement : MonoBehaviour
     //Chamado quando o jogador pressiona a tecla de pular
     public void Pular(InputAction.CallbackContext context)
     {
-        animator.SetBool("estaPulando",true);
+        // Verifica se o jogador está no chão antes de pular
         if (IsGrounded())
         {
             if (context.performed)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                animator.SetBool("estaPulando", false);
+                animator.SetTrigger("pulo");
             }
             else if (context.canceled)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce * 0.5f);
+                animator.SetTrigger("pulo");
             }
         }
     }
@@ -120,32 +136,29 @@ public class PlayerMovement : MonoBehaviour
         // Verifica se o jogador está tocando o chão
         if (Physics2D.OverlapBox(groundCheck.transform.position, groundCheckSize, 0f, groundLayer))
         {
-            animator.SetBool("estaPulando",false);
             return true;
         }    
         return false;
     }
 
-    //Chamado quando o jogador pressiona a tecla de pular
-    //TODO: Implementar pulo
-
     //Chamado quando o jogador pressiona o botão de "Play" no menu inicial
     public bool walkOnScreen()
     {
         // Move o jogador até a posição desejada
+        animator.Play("Walk");
+        animator.SetBool("cinematicaDePlay", true);
         player.transform.position = Vector2.MoveTowards(
             player.transform.position,
             playerTargetPosition.position,
             1.5F * Time.deltaTime
         );
 
-        // Se o jogador chegou à posição desejada, ativa a câmera e o controle do jogador
+        // Se o jogador chegou à posição desejada, ativa a câmera principal, desativa a auxiliar e ativa o controle do jogador
         if (Vector2.Distance(player.transform.position, playerTargetPosition.position) == 0)
         {
-            cam.enabled = false;
-            cam.Follow = player.transform;
-            cam.transform.position.Set(-17.35f, -0.3472534f, -10f);
-            cam.enabled = true;
+            animator.SetBool("cinematicaDePlay", false);
+            mainCamera.gameObject.SetActive(true);
+            staticCamera.gameObject.SetActive(false);
             player.GetComponent<PlayerInput>().enabled = true;
             return true;
         }
@@ -162,12 +175,12 @@ public class PlayerMovement : MonoBehaviour
     private void InterromperMovimento()
     {
         animator.enabled = false;
-        rb.bodyType = RigidbodyType2D.Static; //interromper movimentação quando Beth morre e tela de game over é mostrada
+        rb.bodyType = RigidbodyType2D.Static; // Interromper movimentação quando Beth morre e tela de game over é mostrada
     }
 
     private void AtivarMovimento()
-    { //após gameover, reativar movimentos e animações
+    { // Ativa/Reativa o movimento do jogador
         animator.enabled = true;
-        rb.bodyType = RigidbodyType2D.Dynamic; //interromper movimentação quando Beth morre e tela de game over é mostrada
+        rb.bodyType = RigidbodyType2D.Dynamic; // Reativar movimentação
     }
 }
