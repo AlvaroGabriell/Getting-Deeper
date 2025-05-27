@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cec17b9ea96e23648a3f7f7700a7812d
+guid: 9a368d393f374674e9e5ab3f3e526cef
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,11 +110,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tiles_Cenario_0
+      name: "Cen\xE1rio_0"
       rect:
         serializedVersion: 2
         x: 0
-        y: 80
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -124,18 +124,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd00281c637817f4ebb154f274b61445
-      internalID: -566596652
+      spriteID: df5da155f588cf14aa0c953c0b69ef65
+      internalID: 583538980
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_1
+      name: "Cen\xE1rio_1"
       rect:
         serializedVersion: 2
         x: 16
-        y: 80
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -145,18 +145,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 984b787c3ae7f184ca9cd4421eb9e902
-      internalID: 1643174699
+      spriteID: 3fdd5b859c4d67c4bbbf6036c6bbf413
+      internalID: -1855440395
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_2
+      name: "Cen\xE1rio_2"
       rect:
         serializedVersion: 2
         x: 32
-        y: 80
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -166,18 +166,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccfa13bf481a0d540a86f00e5061a9f8
-      internalID: -1826168195
+      spriteID: d843ba0dfe03eb144ac3a0b5295b7a25
+      internalID: -603671888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_3
+      name: "Cen\xE1rio_3"
       rect:
         serializedVersion: 2
         x: 48
-        y: 80
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -187,18 +187,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9906e8f4e1e9e474babc2a975fbd867a
-      internalID: 802554321
+      spriteID: 81b14d5a2a698de42a78eb7038c724ae
+      internalID: 1932524595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_4
+      name: "Cen\xE1rio_4"
       rect:
         serializedVersion: 2
-        x: 64
-        y: 80
+        x: 80
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -208,18 +208,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b0b5bef88acc7304da050887b3f5b273
-      internalID: -252128155
+      spriteID: a7cb743cdd9cc0048b6acab32986ca9a
+      internalID: 652215629
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_5
+      name: "Cen\xE1rio_5"
       rect:
         serializedVersion: 2
-        x: 192
-        y: 80
+        x: 96
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -229,18 +229,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b6f6b71e6a7065498f1d6b1e4263cb0
-      internalID: -1084716120
+      spriteID: d60ed91aedc38b34d893cb57ddea6e74
+      internalID: -30813837
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_6
+      name: "Cen\xE1rio_6"
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 96
         width: 16
         height: 16
       alignment: 0
@@ -250,18 +250,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31e6ed4dae3a14c49bd6d05a298b07f7
-      internalID: 857556818
+      spriteID: f1a92249e4ea6d041b88980f5f04497b
+      internalID: -1137736163
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_7
+      name: "Cen\xE1rio_7"
       rect:
         serializedVersion: 2
         x: 48
-        y: 64
+        y: 96
         width: 16
         height: 16
       alignment: 0
@@ -271,18 +271,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9cbef9f464b21e24597cd94d58b103c9
-      internalID: 1033441247
+      spriteID: 41e0f380235b9354e8554004765c6a74
+      internalID: 1750777111
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_8
+      name: "Cen\xE1rio_8"
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 80
+        y: 96
         width: 16
         height: 16
       alignment: 0
@@ -292,14 +292,98 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5136ce42b8869c44592336ac9c47e4a6
-      internalID: -317485742
+      spriteID: 6e615fa5fcb90354a8c2bbcb556692b2
+      internalID: 2127599470
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_9
+      name: "Cen\xE1rio_9"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eabd3b97ea14aa34c96526dab3b0b6a7
+      internalID: 807360143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_10"
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25eca573151150b418f9230caa239495
+      internalID: -955548788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_11"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72d8a5f331aa16c409f2a5dfe2f512c7
+      internalID: 1540948694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_12"
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91e0a69e47657024885649af2fffbbda
+      internalID: -1533262077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_13"
       rect:
         serializedVersion: 2
         x: 80
@@ -313,14 +397,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e28bd290615d9148aec314b6e9437f0
-      internalID: 1507831738
+      spriteID: 205b51d6625b7df418653c56279669c4
+      internalID: -1058140197
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_10
+      name: "Cen\xE1rio_14"
       rect:
         serializedVersion: 2
         x: 96
@@ -334,14 +418,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3250839392a2741449c6c9d3d3902d3e
-      internalID: -35893465
+      spriteID: 10c1cee51fed1894b87d7233bf9e3b1f
+      internalID: 876436832
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_11
+      name: "Cen\xE1rio_15"
       rect:
         serializedVersion: 2
         x: 112
@@ -355,17 +439,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5c4ed64d79179c468f204f31be5d987
-      internalID: 869021435
+      spriteID: cb330b70bf355884eb7108e169c8fcae
+      internalID: 1569499303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_12
+      name: "Cen\xE1rio_16"
       rect:
         serializedVersion: 2
-        x: 128
+        x: 144
         y: 64
         width: 16
         height: 16
@@ -376,14 +460,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd9ce1252ceeba449b468f289f6d01bc
-      internalID: -1455804051
+      spriteID: fc587026774cdca438c06156c33eb315
+      internalID: -1079645305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_13
+      name: "Cen\xE1rio_17"
       rect:
         serializedVersion: 2
         x: 160
@@ -397,17 +481,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c52f392e7f01555408a6c5b9daf5aed2
-      internalID: -1236953538
+      spriteID: 7f4c8e94f2bdf3b46a57b824465053d1
+      internalID: -481560658
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_14
+      name: "Cen\xE1rio_18"
       rect:
         serializedVersion: 2
-        x: 176
+        x: 208
         y: 64
         width: 16
         height: 16
@@ -418,35 +502,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5111d62fc8066bc46bfa1fe56585eb60
-      internalID: -1285085995
+      spriteID: c4707eab4ef93c4488ff47261d2f3902
+      internalID: 602675393
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_15
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 64
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9bd42ee43edebb547ae308c00c822330
-      internalID: 1740116629
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles_Cenario_16
+      name: "Cen\xE1rio_19"
       rect:
         serializedVersion: 2
         x: 0
@@ -460,17 +523,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 10bb007a28c3f9743a9ea6b290f78bc0
-      internalID: 1662968425
+      spriteID: c65083235daf5b742abd5024c1037962
+      internalID: -1978631465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_17
+      name: "Cen\xE1rio_20"
       rect:
         serializedVersion: 2
-        x: 96
+        x: 16
         y: 48
         width: 16
         height: 16
@@ -481,14 +544,77 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f27283c3a72e6f1438604e9638e0f8b9
-      internalID: 878809485
+      spriteID: e85edb195d3f53140aed48c1d667e918
+      internalID: 599874710
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_18
+      name: "Cen\xE1rio_21"
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1de3cb8c91e49947af96d307e3aac89
+      internalID: 1178325927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_22"
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39236eb15ef69634782a8ef65cdecf72
+      internalID: 1212824012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_23"
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d1138f7cb3f4c1439dc31cfc01ec92b
+      internalID: 1675614575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_24"
       rect:
         serializedVersion: 2
         x: 112
@@ -502,14 +628,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bd66974148108f40a7b165457750bda
-      internalID: -2023060268
+      spriteID: 13d8bd69059d8d54ebc659af5130f4b1
+      internalID: -570333410
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_19
+      name: "Cen\xE1rio_25"
       rect:
         serializedVersion: 2
         x: 128
@@ -523,14 +649,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3aaeeaf1622b2594988cea4ffd07f440
-      internalID: 869866443
+      spriteID: f5d9f8ad292985848a0399b1b8e0a5c5
+      internalID: -866582870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_20
+      name: "Cen\xE1rio_26"
       rect:
         serializedVersion: 2
         x: 144
@@ -544,14 +670,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d176e8bcfd332b41916e9291acb9388
-      internalID: -685494779
+      spriteID: ae8104fefae0cbe4382c8027e88ea672
+      internalID: -1335701652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_21
+      name: "Cen\xE1rio_27"
       rect:
         serializedVersion: 2
         x: 160
@@ -565,14 +691,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31d9a99a64eb89947b92db73026bf863
-      internalID: -1720708382
+      spriteID: a29075dc602c8004884ef2c5fd1b7cfa
+      internalID: -600166285
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_22
+      name: "Cen\xE1rio_28"
       rect:
         serializedVersion: 2
         x: 176
@@ -586,17 +712,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 002e6305802e5af478d1d70cf8bcfd5b
-      internalID: -1354417108
+      spriteID: c5a8829133149374896cc7252061d514
+      internalID: -1135905779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_23
+      name: "Cen\xE1rio_29"
       rect:
         serializedVersion: 2
-        x: 192
+        x: 208
         y: 48
         width: 16
         height: 16
@@ -607,17 +733,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5745d4049aa59b64c8b0250fdcec567c
-      internalID: 1627715369
+      spriteID: 86185cd645c2e9c43ab78af71718e31a
+      internalID: -1070766478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_24
+      name: "Cen\xE1rio_30"
       rect:
         serializedVersion: 2
-        x: 96
+        x: 0
         y: 32
         width: 16
         height: 16
@@ -628,14 +754,140 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31d626f506ddf5a43acdb1ad482cc8df
-      internalID: -345739028
+      spriteID: f295f98695ff669439726e7bf0401284
+      internalID: -2017558046
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_25
+      name: "Cen\xE1rio_31"
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 277757963422ca442a348baf81bd8b2a
+      internalID: 570721395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_32"
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f76a6bf1ebd89da4e8d7edca79e087d0
+      internalID: -509747284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_33"
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd878b837bf33094fa0db779d35b9bd1
+      internalID: -11533555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_34"
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ed93cd0a59520449ad68938b5c25011
+      internalID: -188938062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_35"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7589d0e890a951c4aa6f70c495a568ea
+      internalID: 42265801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_36"
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db06e020b9c4214c983cbc09e368b3a
+      internalID: -296790112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_37"
       rect:
         serializedVersion: 2
         x: 0
@@ -649,17 +901,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: faa7a316069bfc44eab05413ef05cc38
-      internalID: 56911883
+      spriteID: 2d1b7d966a156714e90303ec6b2366a0
+      internalID: 2143443628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_26
+      name: "Cen\xE1rio_38"
       rect:
         serializedVersion: 2
-        x: 96
+        x: 16
         y: 16
         width: 16
         height: 16
@@ -670,14 +922,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5da3911a136886d4fabea125d46120ef
-      internalID: 2107971022
+      spriteID: ae22152f620a4f342bcaab79480c2b05
+      internalID: -176804086
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles_Cenario_27
+      name: "Cen\xE1rio_39"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f88a94489f41f6f4590d5723b97c0aa7
+      internalID: 301918752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_40"
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a66b2b9b810c11a4893bd84843cbc6e9
+      internalID: -437041258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Cen\xE1rio_41"
       rect:
         serializedVersion: 2
         x: 96
@@ -691,8 +985,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20f5ab2eef4c40f4a90466b676a97f69
-      internalID: -50184495
+      spriteID: de2ad004795de684983fd9743ea7d553
+      internalID: 1298396832
       vertices: []
       indices: 
       edges: []
@@ -708,34 +1002,48 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Tiles_Cenario_0: -566596652
-      Tiles_Cenario_1: 1643174699
-      Tiles_Cenario_10: -35893465
-      Tiles_Cenario_11: 869021435
-      Tiles_Cenario_12: -1455804051
-      Tiles_Cenario_13: -1236953538
-      Tiles_Cenario_14: -1285085995
-      Tiles_Cenario_15: 1740116629
-      Tiles_Cenario_16: 1662968425
-      Tiles_Cenario_17: 878809485
-      Tiles_Cenario_18: -2023060268
-      Tiles_Cenario_19: 869866443
-      Tiles_Cenario_2: -1826168195
-      Tiles_Cenario_20: -685494779
-      Tiles_Cenario_21: -1720708382
-      Tiles_Cenario_22: -1354417108
-      Tiles_Cenario_23: 1627715369
-      Tiles_Cenario_24: -345739028
-      Tiles_Cenario_25: 56911883
-      Tiles_Cenario_26: 2107971022
-      Tiles_Cenario_27: -50184495
-      Tiles_Cenario_3: 802554321
-      Tiles_Cenario_4: -252128155
-      Tiles_Cenario_5: -1084716120
-      Tiles_Cenario_6: 857556818
-      Tiles_Cenario_7: 1033441247
-      Tiles_Cenario_8: -317485742
-      Tiles_Cenario_9: 1507831738
+      "Cen\xE1rio_0": 583538980
+      "Cen\xE1rio_1": -1855440395
+      "Cen\xE1rio_10": -955548788
+      "Cen\xE1rio_11": 1540948694
+      "Cen\xE1rio_12": -1533262077
+      "Cen\xE1rio_13": -1058140197
+      "Cen\xE1rio_14": 876436832
+      "Cen\xE1rio_15": 1569499303
+      "Cen\xE1rio_16": -1079645305
+      "Cen\xE1rio_17": -481560658
+      "Cen\xE1rio_18": 602675393
+      "Cen\xE1rio_19": -1978631465
+      "Cen\xE1rio_2": -603671888
+      "Cen\xE1rio_20": 599874710
+      "Cen\xE1rio_21": 1178325927
+      "Cen\xE1rio_22": 1212824012
+      "Cen\xE1rio_23": 1675614575
+      "Cen\xE1rio_24": -570333410
+      "Cen\xE1rio_25": -866582870
+      "Cen\xE1rio_26": -1335701652
+      "Cen\xE1rio_27": -600166285
+      "Cen\xE1rio_28": -1135905779
+      "Cen\xE1rio_29": -1070766478
+      "Cen\xE1rio_3": 1932524595
+      "Cen\xE1rio_30": -2017558046
+      "Cen\xE1rio_31": 570721395
+      "Cen\xE1rio_32": -509747284
+      "Cen\xE1rio_33": -11533555
+      "Cen\xE1rio_34": -188938062
+      "Cen\xE1rio_35": 42265801
+      "Cen\xE1rio_36": -296790112
+      "Cen\xE1rio_37": 2143443628
+      "Cen\xE1rio_38": -176804086
+      "Cen\xE1rio_39": 301918752
+      "Cen\xE1rio_4": 652215629
+      "Cen\xE1rio_40": -437041258
+      "Cen\xE1rio_41": 1298396832
+      "Cen\xE1rio_5": -30813837
+      "Cen\xE1rio_6": -1137736163
+      "Cen\xE1rio_7": 1750777111
+      "Cen\xE1rio_8": 2127599470
+      "Cen\xE1rio_9": 807360143
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

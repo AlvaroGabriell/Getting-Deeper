@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject pauseMenu, player;
+    public bool isPaused = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void PauseGame()
+    {
+        pauseMenu.SetActive(true); // Ativa o menu de pausa
+        Time.timeScale = 0f; // Pausa o jogo
+        isPaused = true; // Atualiza o estado de pausa
+    }
+
+    public void ResumeGame()
+    {
+        pauseMenu.SetActive(false); // Desativa o menu de pausa
+        Time.timeScale = 1f; // Retoma o jogo
+        isPaused = false; // Atualiza o estado de pausa
     }
 }

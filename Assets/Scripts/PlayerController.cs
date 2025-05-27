@@ -6,36 +6,37 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public GameObject player, groundCheck;
-    public Camera mainCamera;
-    public Camera staticCamera;
+    public GameObject player, groundCheck, ceilingCheck;
+    public Camera mainCamera, staticCamera;
+    public GameController gameController;
     public Animator animator;
+    BoxCollider2D playerCollider;
     SpriteRenderer sr;
     Rigidbody2D rb;
 
     [Header("Player Movement")]
-    public float moveSpeed = 3f, jumpForce = 5f;
-    float horizontalMovement;
-    bool keyShift = false, keyControl = false;
+    public float moveSpeed = 1.8f, jumpForce = 4.4f;
+    float horizontalMovement = 0;
+    bool keyShift = false, keyControl = false, estaAgachado = false, estadoAnteriorAgachado = false;
 
     [Header("Cinematic")]
     public Transform playerTargetPosition;
 
-    [Header("Ground Check")]
+    [Header("Ground/Ceiling Check")]
     public LayerMask groundLayer;
-    public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
+    public Vector2 groundCheckSize = new Vector2(0.2f, 0.01f), ceilingCheckSize = new Vector2(0.2f, 0.01f);
 
 
     private void OnEnable()
     {
-        PlayerVida.PersonagemMorre += InterromperMovimento;
+        PlayerVida.PersonagemMorre += DesativarMovimento;
     }
 
     private void OnDisable()
     {
-        PlayerVida.PersonagemMorre -= InterromperMovimento;
+        PlayerVida.PersonagemMorre -= DesativarMovimento;
     }
 
     // Start is called before the first frame update
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     {
         sr = player.GetComponent<SpriteRenderer>();
         rb = player.GetComponent<Rigidbody2D>();
+        playerCollider = player.GetComponent<BoxCollider2D>();
 
         AtivarMovimento();
     }
@@ -50,8 +52,19 @@ public class PlayerMovement : MonoBehaviour
     // This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
     void FixedUpdate()
     {
-        if (keyControl && !keyShift)
+        estaAgachado = keyControl && !keyShift;
+        
+        if (!estaAgachado && estadoAnteriorAgachado && !CanGetUp())
         {
+            // Força manter agachado mesmo que o jogador solte o CTRL
+            estaAgachado = true;
+        }
+
+        if (estaAgachado != estadoAnteriorAgachado) estadoAnteriorAgachado = estaAgachado;
+
+        if (estaAgachado || (!estaAgachado && estadoAnteriorAgachado && !CanGetUp()))
+        {
+            // Se não houver espaço suficiente acima, mantem a velocidade de agachamento
             rb.velocity = new Vector2(horizontalMovement * moveSpeed * 0.5f, rb.velocity.y);
         }
         else if (keyShift && !keyControl)
@@ -67,16 +80,32 @@ public class PlayerMovement : MonoBehaviour
     /// Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
+        estaAgachado = keyControl && !keyShift;
+
+        // Impede o jogador de levantar se não houver espaço suficiente acima
+        if (!estaAgachado && estadoAnteriorAgachado && !CanGetUp())
+        {
+            // Força manter agachado mesmo que o jogador solte o CTRL
+            estaAgachado = true;
+        }
+
+        // Ajusta a hitbox do jogador se o estado de agachamento mudou
+        if (estaAgachado != estadoAnteriorAgachado)
+        {
+            AjustarHitbox(estaAgachado);
+            estadoAnteriorAgachado = estaAgachado;
+        }
+
         animator.SetFloat("velocidadeJogador", Mathf.Abs(horizontalMovement));
         animator.SetFloat("velocidadeY", rb.velocity.y);
-        if (keyControl && !keyShift)
+        if (estaAgachado)
         {
-            animator.SetBool("agachado", keyControl);
             animator.SetBool("correndo", false);
+            animator.SetBool("agachado", true);
         }
         else if (keyShift && !keyControl)
         {
-            animator.SetBool("correndo", keyShift);
+            animator.SetBool("correndo", true);
             animator.SetBool("agachado", false);
         }
         else
@@ -90,6 +119,8 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
+        if(gameController.isPaused) return; // Não processa movimento se o jogo estiver pausado
+
         if (horizontalMovement == -1)
         {
             sr.flipX = true;
@@ -115,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
     //Chamado quando o jogador pressiona a tecla de pular
     public void Pular(InputAction.CallbackContext context)
     {
+        if (gameController.isPaused) return; // Não processa pulo se o jogo estiver pausado
         // Verifica se o jogador está no chão antes de pular
         if (IsGrounded())
         {
@@ -131,14 +163,37 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool IsGrounded()
+    //Chamado quando o jogador pressiona Escape (ESC) ou o botão de pausa
+    public void Pause(InputAction.CallbackContext context)
     {
-        // Verifica se o jogador está tocando o chão
-        if (Physics2D.OverlapBox(groundCheck.transform.position, groundCheckSize, 0f, groundLayer))
+        if (context.performed)
         {
-            return true;
-        }    
-        return false;
+            FindObjectOfType<UIHandler>().HandleEscape();
+        }
+    }
+
+    private bool IsGrounded()
+    { // Verifica se o jogador está tocando o chão
+        return Physics2D.OverlapBox(groundCheck.transform.position, groundCheckSize, 0f, groundLayer);
+    }
+
+    private bool CanGetUp()
+    { // Verifica se o jogador pode levantar
+        return !Physics2D.OverlapBox(ceilingCheck.transform.position, ceilingCheckSize, 0f, groundLayer);
+    }
+
+    public void AjustarHitbox(bool diminuir)
+    {
+        if (diminuir)
+        {
+            playerCollider.size = new Vector2(playerCollider.size.x, 0.7016722f); // Diminui o tamanho do collider ao agachar
+            playerCollider.offset = new Vector2(playerCollider.offset.x, -0.1346932f); // Ajusta a posição do collider ao agachar
+        }
+        else
+        {
+            playerCollider.size = new Vector2(playerCollider.size.x, 0.8199721f); // Aumenta o tamanho do collider ao levantar
+            playerCollider.offset = new Vector2(playerCollider.offset.x, -0.07554325f); // Ajusta a posição do collider ao levantar
+        }
     }
 
     //Chamado quando o jogador pressiona o botão de "Play" no menu inicial
@@ -154,10 +209,10 @@ public class PlayerMovement : MonoBehaviour
         );
 
         // Se o jogador chegou à posição desejada, ativa a câmera principal, desativa a auxiliar e ativa o controle do jogador
-        if (Vector2.Distance(player.transform.position, playerTargetPosition.position) == 0)
+        if (Vector2.Distance(player.transform.position, playerTargetPosition.position) < 0.01f)
         {
             animator.SetBool("cinematicaDePlay", false);
-            mainCamera.gameObject.SetActive(true);
+            mainCamera.GetComponent<Camera>().enabled = true;
             staticCamera.gameObject.SetActive(false);
             player.GetComponent<PlayerInput>().enabled = true;
             return true;
@@ -170,15 +225,16 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawCube(groundCheck.transform.position, groundCheckSize);
+        Gizmos.DrawCube(ceilingCheck.transform.position, ceilingCheckSize);
     }
 
-    private void InterromperMovimento()
+    public void DesativarMovimento()
     {
         animator.enabled = false;
         rb.bodyType = RigidbodyType2D.Static; // Interromper movimentação quando Beth morre e tela de game over é mostrada
     }
 
-    private void AtivarMovimento()
+    public void AtivarMovimento()
     { // Ativa/Reativa o movimento do jogador
         animator.enabled = true;
         rb.bodyType = RigidbodyType2D.Dynamic; // Reativar movimentação
