@@ -8,10 +8,38 @@ public class UIHandler : MonoBehaviour
 {
     public PlayerController playerController;
     public GameController gameController;
-    public GameObject MenuInicial, MenuSettings, PauseMenu, GameOverMenu;
+    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu;
     public GameObject player;
     public MusicManager musicManager;
     bool gameStarted = false, playerReachedPosition = false;
+    private Stack<GameObject> menuStack = new Stack<GameObject>();
+
+    // Use essa função sempre que for necessário abrir um menu
+    // Ela garante que apenas um menu esteja ativo por vez, fechando o menu atual antes de abrir o novo
+    // Mantendo uma pilha de menus para gerenciar a navegação entre eles.
+    public void AbrirMenu(GameObject menu)
+    {
+        if (menuStack.Count > 0) // Se o há um menu ativo na pilha
+        {
+            menuStack.Peek().SetActive(false); // Desativa o menu atual no topo da pilha
+        }
+
+        menu.SetActive(true); // Ativa o novo menu
+        menuStack.Push(menu); // Adiciona o novo menu no topo da pilha
+    }
+
+    // Use essa função para fechar o menu atual e reativar o anterior
+    public void FecharMenuAtual()
+    {
+        if (menuStack.Count > 0)
+        {
+            menuStack.Pop().SetActive(false); // Fecha o menu atual e remove da pilha
+        }
+        if (menuStack.Count > 0)
+        {
+            menuStack.Peek().SetActive(true); // Reativa o menu anterior
+        }
+    }
 
     private void OnEnable()
     {
@@ -26,6 +54,7 @@ public class UIHandler : MonoBehaviour
     void Start()
     {
         player.GetComponent<PlayerInput>().enabled = false; // desativa o controle do jogador
+        AbrirMenu(MenuInicial); // Abre o menu inicial
     }
 
     // Update is called once per frame
@@ -41,7 +70,7 @@ public class UIHandler : MonoBehaviour
     // Função chamada quando o jogador clica no botão "Play"
     public void OnPlay()
     {
-        MenuInicial.SetActive(false); // desativa o menu inicial
+        FecharMenuAtual(); // Fecha o menu atual
         StartCoroutine(musicManager.FadeOutMusic(1.5f)); // pausa a música do menu com fade out
         gameStarted = true; // ativa a animação de entrada
     }
@@ -49,9 +78,7 @@ public class UIHandler : MonoBehaviour
     // Função chamada quando o jogador clica no botão "Settings"
     public void OnSettings()
     {
-        MenuSettings.SetActive(true); // ativa o menu de configurações
-        MenuInicial.SetActive(false); // desativa o menu inicial, se estiver ativo
-        PauseMenu.SetActive(false); // desativa o menu de pausa, se estiver ativo
+        AbrirMenu(MenuSettings);
     }
 
     public void OnQuit()
@@ -63,28 +90,25 @@ public class UIHandler : MonoBehaviour
         // Settings Menu
     public void OnBack()
     {
-        if (gameController.isPaused)
-        {
-            PauseMenu.SetActive(true); // ativa o menu de pausa
-            MenuSettings.SetActive(false); // desativa o menu de configurações
-        }
-        else
-        {
-            MenuSettings.SetActive(false); // desativa o menu de configurações
-            MenuInicial.SetActive(true); // ativa o menu inicial    
-        }
+        FecharMenuAtual(); // Fecha o menu atual e reativa o anterior
     }
 
     public void OnResume()
     {
+        FecharMenuAtual(); // Fecha o menu de pausa
         gameController.ResumeGame(); // retoma o jogo
         playerController.AtivarMovimento(); // Ativa o movimento do jogador
+    }
+
+    public void OnAreYouSure()
+    {
+        AbrirMenu(AreYouSure); // Abre o menu de confirmação
     }
 
     public void OnMainMenu()
     {
         Time.timeScale = 1f; // Retoma o tempo do jogo
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Principal"); // Retorna ao menu principal
     }
 
     public void HandleEscape()
@@ -103,6 +127,7 @@ public class UIHandler : MonoBehaviour
         {
             // Se estiver no jogo rodando, pausa o jogo
             gameController.PauseGame();
+            AbrirMenu(PauseMenu); // Abre o menu de pausa
             playerController.DesativarMovimento(); // Desativa o movimento do jogador
         }
     }
