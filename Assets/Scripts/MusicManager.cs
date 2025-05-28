@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour
 {
-    private static MusicManager Instance;
+    public static MusicManager Instance { get; private set; }
     private AudioSource audioSource;
     public AudioClip menuMusic;
-    [SerializeField] private Slider musicSlider;
+    [SerializeField] public Slider musicSlider;
 
     private void Awake()
     {
@@ -16,7 +17,7 @@ public class MusicManager : MonoBehaviour
         {
             Instance = this;
             audioSource = GetComponent<AudioSource>();
-            // DontDestroyOnLoad(gameObject); // Mantém o objeto entre as cenas
+            DontDestroyOnLoad(gameObject); // Mantém o objeto entre as cenas
         }
         else
         {
@@ -29,10 +30,24 @@ public class MusicManager : MonoBehaviour
     {
         if (menuMusic != null)
         {
-            PlayMenuMusic(false, menuMusic);
+            StartCoroutine(FadeInMusic(1.5f)); // Inicia com um fade in de 1 segundo
         }
 
         musicSlider.onValueChanged.AddListener(delegate { SetVolume(musicSlider.value); });
+    }
+
+    public void AttachSlider(Slider slider)
+    {
+        if (slider != null)
+        {
+            musicSlider = slider;
+            // remove listeners antigos só por segurança
+            musicSlider.onValueChanged.RemoveAllListeners();
+            // adiciona o listener para atualizar o volume
+            musicSlider.onValueChanged.AddListener(delegate { SetVolume(musicSlider.value); });
+            // atualize o valor visual do slider pro volume atual
+            musicSlider.value = audioSource.volume;
+        }
     }
 
     public static void SetVolume(float volume)
@@ -60,7 +75,7 @@ public class MusicManager : MonoBehaviour
     {
         audioSource.Pause(); // Pausa a música
     }
-    
+
     public IEnumerator FadeOutMusic(float duration)
     {
         float startVolume = audioSource.volume;
@@ -73,5 +88,20 @@ public class MusicManager : MonoBehaviour
 
         audioSource.Pause();
         audioSource.volume = startVolume; // volta volume ao original para a próxima vez
+    }
+
+    public IEnumerator FadeInMusic(float duration)
+    {
+        float startVolume = 0f;
+        float targetVolume = audioSource.volume;
+
+        audioSource.volume = startVolume; // Começa com volume 0 para o fade in
+        PlayMenuMusic(false, menuMusic); // Garante que a música esteja tocando
+
+        while (audioSource.volume < targetVolume)
+        {
+            audioSource.volume += targetVolume * Time.deltaTime / duration;
+            yield return null;
+        }
     }
 }

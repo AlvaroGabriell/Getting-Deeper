@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class UIHandler : MonoBehaviour
     public GameController gameController;
     public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu;
     public GameObject player;
-    public MusicManager musicManager;
+    //public MusicManager musicManager;
     bool gameStarted = false, playerReachedPosition = false;
     private Stack<GameObject> menuStack = new Stack<GameObject>();
 
@@ -71,7 +72,7 @@ public class UIHandler : MonoBehaviour
     public void OnPlay()
     {
         FecharMenuAtual(); // Fecha o menu atual
-        StartCoroutine(musicManager.FadeOutMusic(1.5f)); // pausa a música do menu com fade out
+        StartCoroutine(MusicManager.Instance.FadeOutMusic(1.5f)); // pausa a música do menu com fade out
         gameStarted = true; // ativa a animação de entrada
     }
 
@@ -79,6 +80,7 @@ public class UIHandler : MonoBehaviour
     public void OnSettings()
     {
         AbrirMenu(MenuSettings);
+        MusicManager.Instance.AttachSlider(MenuSettings.GetComponentInChildren<Slider>()); // Anexa o slider de volume do menu de configurações
     }
 
     public void OnQuit()
@@ -97,7 +99,7 @@ public class UIHandler : MonoBehaviour
     {
         FecharMenuAtual(); // Fecha o menu de pausa
         gameController.ResumeGame(); // retoma o jogo
-        playerController.AtivarMovimento(); // Ativa o movimento do jogador
+        player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Enable(); // Reativa o mapa de ações do jogador
     }
 
     public void OnAreYouSure()
@@ -109,6 +111,7 @@ public class UIHandler : MonoBehaviour
     {
         Time.timeScale = 1f; // Retoma o tempo do jogo
         SceneManager.LoadScene("Principal"); // Retorna ao menu principal
+        MusicManager.Instance.PlayMenuMusic(true); // Reinicia a música do menu
     }
 
     public void HandleEscape()
@@ -128,7 +131,8 @@ public class UIHandler : MonoBehaviour
             // Se estiver no jogo rodando, pausa o jogo
             gameController.PauseGame();
             AbrirMenu(PauseMenu); // Abre o menu de pausa
-            playerController.DesativarMovimento(); // Desativa o movimento do jogador
+            player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable(); // Desativa o mapa de ações do jogador
+            player.GetComponent<PlayerInput>().actions.FindAction("Pausar").Enable(); // Reativa a ação de pausar para permitir que o jogador retome o jogo
         }
     }
 

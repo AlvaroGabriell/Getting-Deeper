@@ -62,7 +62,7 @@
                 {
                     "name": "Pausar",
                     "type": "Button",
-                    "id": "31b31ea8-5d48-45b8-b873-3b11b23798b5",
+                    "id": "4453b230-1ca8-43f4-91fb-cd7641b389ef",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -336,7 +336,7 @@
                 },
                 {
                     "name": "",
-                    "id": "a523f3c1-a2a0-4314-a5f4-7dfa2899c3a4",
+                    "id": "faffac90-5196-465a-8846-3c2ae1bd9c72",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",

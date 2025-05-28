@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: RandomCeilingDecorations
+  m_Name: RCeiling
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 0}
   m_DefaultGameObject: {fileID: 0}
@@ -18,10 +18,8 @@ MonoBehaviour:
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: -1855440395, guid: 9a368d393f374674e9e5ab3f3e526cef, type: 3}
-    - {fileID: -603671888, guid: 9a368d393f374674e9e5ab3f3e526cef, type: 3}
-    - {fileID: -955548788, guid: 9a368d393f374674e9e5ab3f3e526cef, type: 3}
-    - {fileID: 807360143, guid: 9a368d393f374674e9e5ab3f3e526cef, type: 3}
+    - {fileID: 652215629, guid: 9a368d393f374674e9e5ab3f3e526cef, type: 3}
+    - {fileID: -30813837, guid: 9a368d393f374674e9e5ab3f3e526cef, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
