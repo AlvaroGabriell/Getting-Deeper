@@ -10,6 +10,7 @@ public class MusicManager : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip menuMusic;
     [SerializeField] public Slider musicSlider;
+    private int mostRecentCoroutineID = 0;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class MusicManager : MonoBehaviour
     {
         if (menuMusic != null)
         {
-            StartCoroutine(FadeInMusic(1.5f)); // Inicia com um fade in de 1 segundo
+            startFadeIn(1.5F); // Inicia com um fade in de 1.5 segundos
         }
 
         musicSlider.onValueChanged.AddListener(delegate { SetVolume(musicSlider.value); });
@@ -76,12 +77,24 @@ public class MusicManager : MonoBehaviour
         audioSource.Pause(); // Pausa a música
     }
 
-    public IEnumerator FadeOutMusic(float duration)
+    public void startFadeOut(float duration)
+    {
+        mostRecentCoroutineID++;
+        StartCoroutine(FadeOutMusic(duration, mostRecentCoroutineID));
+    }
+    public void startFadeIn(float duration)
+    {
+        mostRecentCoroutineID++;
+        StartCoroutine(FadeInMusic(duration, mostRecentCoroutineID));
+    }
+
+    public IEnumerator FadeOutMusic(float duration, int myCoroutineID)
     {
         float startVolume = audioSource.volume;
 
         while (audioSource.volume > 0)
         {
+            if (myCoroutineID != mostRecentCoroutineID) yield break; // Verifica se a coroutine ainda é a mais recente, se não for, termina a execução
             audioSource.volume -= startVolume * Time.deltaTime / duration;
             yield return null;
         }
@@ -90,7 +103,7 @@ public class MusicManager : MonoBehaviour
         audioSource.volume = startVolume; // volta volume ao original para a próxima vez
     }
 
-    public IEnumerator FadeInMusic(float duration)
+    public IEnumerator FadeInMusic(float duration, int myCoroutineID)
     {
         float startVolume = 0f;
         float targetVolume = audioSource.volume;
@@ -100,6 +113,7 @@ public class MusicManager : MonoBehaviour
 
         while (audioSource.volume < targetVolume)
         {
+            if (myCoroutineID != mostRecentCoroutineID) yield break; // Verifica se a coroutine ainda é a mais recente, se não for, termina a execução
             audioSource.volume += targetVolume * Time.deltaTime / duration;
             yield return null;
         }

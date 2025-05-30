@@ -72,7 +72,7 @@ public class UIHandler : MonoBehaviour
     public void OnPlay()
     {
         FecharMenuAtual(); // Fecha o menu atual
-        StartCoroutine(MusicManager.Instance.FadeOutMusic(1.5f)); // pausa a música do menu com fade out
+        MusicManager.Instance.startFadeOut(1.5F); // pausa a música do menu com fade out
         gameStarted = true; // ativa a animação de entrada
     }
 

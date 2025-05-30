@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("velocidadeJogador", Mathf.Abs(horizontalMovement));
         animator.SetFloat("velocidadeY", rb.velocity.y);
+        animator.SetBool("isGrounded", IsGrounded());
         if (estaAgachado)
         {
             animator.SetBool("correndo", false);
