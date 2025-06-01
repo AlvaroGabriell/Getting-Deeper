@@ -14,7 +14,7 @@ public class PlayerVida : MonoBehaviour
     }
 
 
-    void LevarDano(float dano)
+    public void LevarDano(float dano) //dano é enviado pelo script de inimigo
     {
         vida -= dano;
         if (vida <= 0)
