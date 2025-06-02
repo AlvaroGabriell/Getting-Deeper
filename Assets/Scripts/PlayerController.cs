@@ -5,13 +5,18 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject player, groundCheck, ceilingCheck;
+    [Header("Referências")]
+    public GameObject player;
+    public GameObject groundCheck;
+    public GameObject ceilingCheck;
     public Camera mainCamera, staticCamera;
     public GameController gameController;
     public Animator animator;
+    public GameObject lanterna;
     BoxCollider2D playerCollider;
     SpriteRenderer sr;
     Rigidbody2D rb;
@@ -125,10 +130,12 @@ public class PlayerController : MonoBehaviour
         if (horizontalMovement == -1)
         {
             sr.flipX = true;
+            lanterna.transform.rotation = Quaternion.Euler(0, 0, 90); // Inverte a lanterna quando o jogador se move para a esquerda
         }
         else if (horizontalMovement == 1)
         {
             sr.flipX = false;
+            lanterna.transform.rotation = Quaternion.Euler(0, 0, -90); // Inverte a lanterna quando o jogador se move para a esquerda
         }
     }
 
