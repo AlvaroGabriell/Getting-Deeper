@@ -80,7 +80,11 @@ public class UIHandler : MonoBehaviour
     public void OnSettings()
     {
         AbrirMenu(MenuSettings);
-        MusicManager.Instance.AttachSlider(MenuSettings.GetComponentInChildren<Slider>()); // Anexa o slider de volume do menu de configurações
+        foreach (Slider slider in MenuSettings.GetComponentsInChildren<Slider>())
+        {
+            if (slider.name == "MusicSlider") MusicManager.Instance.AttachSlider(slider); // Anexa o slider de volume do menu de configurações
+            else if (slider.name == "SFXSlider") SFXManager.Instance.AttachSlider(slider); // Anexa o slider de volume do SFX no menu de configurações
+        }
     }
 
     public void OnQuit()

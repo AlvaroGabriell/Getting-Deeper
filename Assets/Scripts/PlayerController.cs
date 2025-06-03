@@ -17,14 +17,14 @@ public class PlayerController : MonoBehaviour
     public GameController gameController;
     public Animator animator;
     public GameObject lanterna;
-    BoxCollider2D playerCollider;
+    PolygonCollider2D playerCollider;
     SpriteRenderer sr;
     Rigidbody2D rb;
 
     [Header("Player Movement")]
     public float moveSpeed = 1.8f, jumpForce = 4.4f;
-    float horizontalMovement = 0;
-    bool keyShift = false, keyControl = false, estaAgachado = false, estadoAnteriorAgachado = false;
+    float horizontalMovement = 0.0f, tempoSegurandoPulo = 0.0f;
+    bool keyShift = false, keyControl = false, estaAgachado = false, estadoAnteriorAgachado = false, carregandoPulo = false;
 
     [Header("Cinematic")]
     public Transform playerTargetPosition;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         sr = player.GetComponent<SpriteRenderer>();
         rb = player.GetComponent<Rigidbody2D>();
-        playerCollider = player.GetComponent<BoxCollider2D>();
+        playerCollider = player.GetComponent<PolygonCollider2D>();
 
         AtivarMovimento();
     }
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         estaAgachado = keyControl && !keyShift;
-        
+
         if (!estaAgachado && estadoAnteriorAgachado && !CanGetUp())
         {
             // Força manter agachado mesmo que o jogador solte o CTRL
@@ -67,18 +67,26 @@ public class PlayerController : MonoBehaviour
 
         if (estaAgachado != estadoAnteriorAgachado) estadoAnteriorAgachado = estaAgachado;
 
-        if (estaAgachado || (!estaAgachado && estadoAnteriorAgachado && !CanGetUp()))
-        {
-            // Se não houver espaço suficiente acima, mantem a velocidade de agachamento
-            rb.velocity = new Vector2(horizontalMovement * moveSpeed * 0.5f, rb.velocity.y);
-        }
-        else if (keyShift && !keyControl)
-        {
-            rb.velocity = new Vector2(horizontalMovement * moveSpeed * 1.5f, rb.velocity.y);
+        if (!carregandoPulo)
+        { // Se o jogador não estiver carregando um pulo, processa o movimento
+            if (estaAgachado || (!estaAgachado && estadoAnteriorAgachado && !CanGetUp()))
+            {
+                // Se não houver espaço suficiente acima, mantem a velocidade de agachamento
+                rb.velocity = new Vector2(horizontalMovement * moveSpeed * 0.5f, rb.velocity.y);
+            }
+            else if (keyShift && !keyControl)
+            {
+                rb.velocity = new Vector2(horizontalMovement * moveSpeed * 1.5f, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
+            }
         }
         else
         {
-            rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            // Se o jogador estiver carregando um pulo, não processa movimento horizontal
         }
     }
 
@@ -100,6 +108,13 @@ public class PlayerController : MonoBehaviour
             AjustarHitbox(estaAgachado);
             estadoAnteriorAgachado = estaAgachado;
         }
+
+        if (carregandoPulo)
+        {
+            tempoSegurandoPulo += Time.deltaTime * 2.2f;
+            animator.SetFloat("tempoSegurandoPulo", tempoSegurandoPulo);
+        }
+        animator.SetBool("carregandoPulo", carregandoPulo);
 
         animator.SetFloat("velocidadeJogador", Mathf.Abs(horizontalMovement));
         animator.SetFloat("velocidadeY", rb.velocity.y);
@@ -125,7 +140,8 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
-        if(gameController.isPaused) return; // Não processa movimento se o jogo estiver pausado
+        if (gameController.isPaused) return; // Não processa movimento se o jogo estiver pausado
+        if (carregandoPulo) return; // Não processa movimento se o jogador estiver carregando um pulo
 
         if (horizontalMovement == -1)
         {
@@ -156,18 +172,18 @@ public class PlayerController : MonoBehaviour
     {
         if (gameController.isPaused) return; // Não processa pulo se o jogo estiver pausado
         // Verifica se o jogador está no chão antes de pular
-        if (IsGrounded())
+        if (context.started && IsGrounded())
         {
-            if (context.performed)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                animator.SetTrigger("pulo");
-            }
-            else if (context.canceled)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce * 0.5f);
-                animator.SetTrigger("pulo");
-            }
+            tempoSegurandoPulo = 0.0f; // Reseta o tempo de pulo
+            carregandoPulo = true;
+            animator.SetTrigger("pulo");
+        }
+
+        if (context.canceled && carregandoPulo)
+        {
+            float forcaFinalPulo = Mathf.Clamp(tempoSegurandoPulo, 0.8f, 1.3f) * jumpForce; // Calcula a força do pulo com base no tempo segurando o botão
+            rb.velocity = new Vector2(rb.velocity.x, forcaFinalPulo);
+            carregandoPulo = false;
         }
     }
 
@@ -194,13 +210,19 @@ public class PlayerController : MonoBehaviour
     {
         if (diminuir)
         {
-            playerCollider.size = new Vector2(playerCollider.size.x, 0.7016722f); // Diminui o tamanho do collider ao agachar
-            playerCollider.offset = new Vector2(playerCollider.offset.x, -0.1346932f); // Ajusta a posição do collider ao agachar
+            Vector2[] points = playerCollider.GetPath(0); // Pega o Path 0
+            points[0] = new Vector2(points[0].x, 0.2125836f); // Ajusta a posição do ponto 0
+            points[5] = new Vector2(points[5].x, 0.2125836f); // Ajusta a posição do ponto 5
+            points[6] = new Vector2(points[6].x, 0.2125836f); // Ajusta a posição do ponto 6
+            playerCollider.SetPath(0, points); // Define o Path 0 com os novos pontos
         }
         else
         {
-            playerCollider.size = new Vector2(playerCollider.size.x, 0.8199721f); // Aumenta o tamanho do collider ao levantar
-            playerCollider.offset = new Vector2(playerCollider.offset.x, -0.07554325f); // Ajusta a posição do collider ao levantar
+            Vector2[] points = playerCollider.GetPath(0); // Pega o Path 0
+            points[0] = new Vector2(points[0].x, 0.334312f); // Ajusta a posição do ponto 0
+            points[5] = new Vector2(points[5].x, 0.2855315f); // Ajusta a posição do ponto 5
+            points[6] = new Vector2(points[6].x, 0.334312f); // Ajusta a posição do ponto 6
+            playerCollider.SetPath(0, points); // Define o Path 0 com os novos pontos
         }
     }
 
@@ -246,5 +268,23 @@ public class PlayerController : MonoBehaviour
     { // Ativa/Reativa o movimento do jogador
         animator.enabled = true;
         rb.bodyType = RigidbodyType2D.Dynamic; // Reativar movimentação
+    }
+    
+    // -------------- Player SFX Methods --------------
+    public void PlaySteps()
+    {
+        SFXManager.Instance.PlaySFX("Steps");
+    }
+    public void PlayStepsCrouched()
+    {
+        SFXManager.Instance.PlaySFX("Steps", 0.5F);
+    }
+    public void PlayJump()
+    {
+        SFXManager.Instance.PlaySFX("Jump");
+    }
+    public void PlayLanding()
+    {
+        SFXManager.Instance.PlaySFX("Landing");
     }
 }

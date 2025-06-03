@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance { get; private set; }
-    private AudioSource audioSource;
+    private static AudioSource audioSource;
     public AudioClip menuMusic;
     [SerializeField] public Slider musicSlider;
     private int mostRecentCoroutineID = 0;
@@ -53,7 +53,7 @@ public class MusicManager : MonoBehaviour
 
     public static void SetVolume(float volume)
     {
-        Instance.audioSource.volume = volume;
+        audioSource.volume = volume;
     }
 
     public void PlayMenuMusic(bool resetSong, AudioClip newSong = null)
