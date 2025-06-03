@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,8 +12,8 @@ public class UIHandler : MonoBehaviour
     public GameController gameController;
     public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu;
     public GameObject player;
-    //public MusicManager musicManager;
-    bool gameStarted = false, playerReachedPosition = false;
+    private CanvasGroup canvasGroup;
+    bool gameStarted = false, playerReachedPosition = false, fadeIn = false, fadeOut = false;
     private Stack<GameObject> menuStack = new Stack<GameObject>();
 
     // Use essa função sempre que for necessário abrir um menu
@@ -61,18 +62,44 @@ public class UIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Responsável pela cinematic de entrada do jogo
         if (gameStarted && !playerReachedPosition)
         {
             playerReachedPosition = playerController.walkOnScreen(); // Move o jogador até a posição de entrada
         }
+
+        // Responsável por aplicar o fade in e fade out nos menus
+        if (fadeIn)
+        {
+            if (canvasGroup.alpha < 1f)
+            {
+                canvasGroup.alpha += Time.deltaTime; // Aumenta a opacidade do menu com o tempo
+            }
+            else
+            {
+                fadeIn = false; // Para o fade in quando a opacidade atingir 1
+            }
+        }
+        if (fadeOut)
+        {
+            if (canvasGroup.alpha > 0f)
+            {
+                canvasGroup.alpha -= Time.deltaTime; // Diminui a opacidade do menu com o tempo
+            }
+            else
+            {
+                fadeOut = false; // Para o fade out quando a opacidade atingir 0
+                FecharMenuAtual(); // Fecha o menu após o fade out
+            }
+        }
     }
 
-        // Main Menu
+    // Main Menu
     // Função chamada quando o jogador clica no botão "Play"
     public void OnPlay()
     {
-        FecharMenuAtual(); // Fecha o menu atual
         MusicManager.Instance.startFadeOut(1.5F); // pausa a música do menu com fade out
+        FadeOutMenu(MenuInicial); // Inicia o fade out do menu inicial
         gameStarted = true; // ativa a animação de entrada
     }
 
@@ -93,7 +120,7 @@ public class UIHandler : MonoBehaviour
         Application.Quit();
     }
 
-        // Settings Menu
+    // Settings Menu
     public void OnBack()
     {
         FecharMenuAtual(); // Fecha o menu atual e reativa o anterior
@@ -137,6 +164,33 @@ public class UIHandler : MonoBehaviour
             AbrirMenu(PauseMenu); // Abre o menu de pausa
             player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable(); // Desativa o mapa de ações do jogador
             player.GetComponent<PlayerInput>().actions.FindAction("Pausar").Enable(); // Reativa a ação de pausar para permitir que o jogador retome o jogo
+        }
+    }
+
+    public void FadeInMenu(GameObject menu)
+    {
+        canvasGroup = menu.GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            fadeIn = true;
+            canvasGroup.interactable = true; // Ativa a interatividade do menu durante o fade in
+        }
+        else
+        {
+            Debug.LogWarning("CanvasGroup component not found on the menu GameObject.");
+        }
+    }
+    public void FadeOutMenu(GameObject menu)
+    {
+        canvasGroup = menu.GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            fadeOut = true;
+            canvasGroup.interactable = false; // Desativa a interatividade do menu durante o fade out
+        }
+        else
+        {
+            Debug.LogWarning("CanvasGroup component not found on the menu GameObject.");
         }
     }
 
