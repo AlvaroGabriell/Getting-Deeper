@@ -106753,7 +106753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 136361069}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107051,7 +107051,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 210133302}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CeilingCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110683,7 +110683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1123262118}
   - component: {fileID: 1123262119}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Luz lanterna
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115260,7 +115260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1487763200}
   - component: {fileID: 1487763201}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Luz capacete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116406,7 +116406,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1901692171}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lanterna
   m_TagString: Light
   m_Icon: {fileID: 0}
@@ -116653,7 +116653,7 @@ GameObject:
   - component: {fileID: 1922951887}
   - component: {fileID: 1922951888}
   - component: {fileID: 1922951890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
