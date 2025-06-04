@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Vector2 groundCheckSize = new Vector2(0.2f, 0.01f), ceilingCheckSize = new Vector2(0.2f, 0.01f);
 
-
     private void OnEnable()
     {
         PlayerVida.PersonagemMorre += DesativarMovimento;
@@ -193,6 +192,21 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             FindObjectOfType<UIHandler>().HandleEscape();
+        }
+    }
+
+    public void MudarEstadoLanterna(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (lanterna.activeSelf)
+            {
+                lanterna.SetActive(false);
+            }
+            else
+            {
+                lanterna.SetActive(true);
+            }
         }
     }
 
