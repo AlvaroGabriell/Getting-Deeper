@@ -202,10 +202,12 @@ public class PlayerController : MonoBehaviour
             if (lanterna.activeSelf)
             {
                 lanterna.SetActive(false);
+                SFXManager.Instance.PlaySFX("LanternOff");
             }
             else
             {
                 lanterna.SetActive(true);
+                SFXManager.Instance.PlaySFX("LanternOn");
             }
         }
     }
