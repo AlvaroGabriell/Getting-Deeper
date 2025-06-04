@@ -18,10 +18,22 @@ public class Monstro_Estado_Idle : Monstro_Estado_Base
     {
         base.LogicUpdate();
         //inserir detecção de jogador
+        if (monstro.DetectarJogador())
+        {
+            monstro.MudarEstado(monstro.estado_JogadorDetectado);
+        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        if (monstro.viradoP_Esquerda==1)
+            {
+                monstro.rb.velocity = new Vector2(-monstro.velocidade, monstro.rb.velocity.y);
+            }
+            else
+            {
+                monstro.rb.velocity = new Vector2(monstro.velocidade, monstro.rb.velocity.y);
+            }
     }
 }

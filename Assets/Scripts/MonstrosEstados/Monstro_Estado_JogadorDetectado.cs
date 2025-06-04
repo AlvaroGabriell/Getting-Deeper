@@ -8,15 +8,34 @@ public class Monstro_Estado_JogadorDetectado : Monstro_Estado_Base
     {
 
     }
-    
+
     public override void Enter()
     {
         base.Enter();
+        //mudança da animação para wake
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        //retorno da animação pra idle
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (!monstro.DetectarJogador()) //se o jogador não está mais "em range"
+        {
+            monstro.MudarEstado(monstro.estado_Idle);
+        }
+        else
+        {
+            //se o jogador está em alcance
+            if (Time.time >= monstro.tempoEstado + monstro.delayAtaque)
+            {// e deu o tempo do delay de o monstro ter registrado o jogador
+                monstro.MudarEstado(monstro.estado_Atacando);
+            }
+        }
     }
 
     public override void PhysicsUpdate()

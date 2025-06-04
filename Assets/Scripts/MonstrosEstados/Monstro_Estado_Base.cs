@@ -16,12 +16,18 @@ public class Monstro_Estado_Base
 
     public virtual void Enter()
     {
+        //ao entrar num estado
+    }
 
+    public virtual void Exit()
+    {
+        //ao sair de um estado
     }
 
     public virtual void LogicUpdate()
     {
         //equivalente ao update em classes sem monobehaivor
+
     }
 
     public virtual void PhysicsUpdate()
