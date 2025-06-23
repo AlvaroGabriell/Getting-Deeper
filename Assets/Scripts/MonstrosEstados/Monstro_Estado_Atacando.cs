@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Monstro_Estado_Atacando : Monstro_Estado_Base
 {
-    //atacar por um tempo até o jogador sair do alcance ou monstro ser derrotado
     public Monstro_Estado_Atacando(MonstroController monstro, string nomeAnimacao) : base(monstro, nomeAnimacao)
     {
 
@@ -13,6 +12,17 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
     public override void Enter()
     {
         base.Enter();
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(monstro.aggro_area.position, monstro.distancia_alcance_ataque, monstro.layersAtacavel);
+        foreach (Collider2D hitCollider in hitColliders)
+        {
+            IDamageble damageble = hitCollider.GetComponent<IDamageble>(); //tudo o que pode levar dano está inserido e detectavel com o IDamageble
+            if (damageble != null)
+            {//se algo recebeu dano
+                damageble.Dano(monstro.qtd_Dano);
+            }
+        }
+        //após um ataque executado, mudar o estado do monstro
+        monstro.MudarEstado(monstro.estado_Idle);
     }
 
     public override void Exit()
@@ -28,29 +38,5 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        if (Time.time >= monstro.tempoEstado + monstro.tempo_Ataque) //se o ataque acabou
-        {
-            //verificar se o jogador ainda está em alcance
-            if (monstro.DetectarJogador())
-            {
-                monstro.MudarEstado(monstro.estado_JogadorDetectado);
-            }
-            else
-            {
-                //senão...retornar idle
-                monstro.MudarEstado(monstro.estado_Idle);
-            }
-        }
-        else
-        {
-            Ataque();
-        }
-    }
-
-    void Ataque()
-    {
-        monstro.rb.velocity = new Vector2(monstro.velocidade_Ataque * monstro.viradoP_Esquerda, monstro.rb.velocity.y);
     }
 }
-  

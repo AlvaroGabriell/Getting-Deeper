@@ -9,24 +9,23 @@ public class MonstroController : MonoBehaviour
 
     //Estados que os inimigos podem assumir
     public Monstro_Estado_Base estado_Atual;
-
     public Monstro_Estado_JogadorDetectado estado_JogadorDetectado;
     public Monstro_Estado_Idle estado_Idle;
+    public Monstro_Estado_Agressivo estado_Agressivo;
     public Monstro_Estado_Atacando estado_Atacando;
 
     //Variáveis e controles de informações pertinentes a cada monstro
     public Rigidbody2D rb;
     public Transform aggro_area;
-    public LayerMask playerLayer;
-
+    public LayerMask playerLayer,layersAtacavel; //22/06/25 - ver se precisa detectar cenário  
     public int viradoP_Esquerda = 1;
-    public float distancia_raycast, distancia_detectar_Jogador;
+    public float distancia_raycast, distancia_detectar_Jogador,distancia_alcance_ataque; //22/06/25 - ver se precisa detectar cenário  
     public float velocidade; //Velocidade que o monstro se move
     public float detectDelay; //Intervalo de tempo após detectar jogador para realizar operações
     public float tempoEstado; //Tempo durante a mudança de estados
     public float delayAtaque; //Após Detectar inimigo o quão demora para atacar
-
     public float tempo_Ataque, velocidade_Ataque; //duração e velocidade dos ataques
+    public float qtd_Dano; //Quanto de dano aquele monstro dá ao atacar a Beth
 
     #endregion
 
@@ -34,6 +33,7 @@ public class MonstroController : MonoBehaviour
     {
         estado_Idle = new Monstro_Estado_Idle(this, "idle");
         estado_JogadorDetectado = new Monstro_Estado_JogadorDetectado(this, "jogadorDetectado");
+        estado_Agressivo = new Monstro_Estado_Agressivo(this, "agressivo");
         estado_Atacando = new Monstro_Estado_Atacando(this, "atacando");
 
         estado_Atual = estado_Idle;
@@ -80,9 +80,23 @@ public class MonstroController : MonoBehaviour
         }
     }
 
+    public bool DetectarAtacavel()
+    {
+        RaycastHit2D hitTarget = Physics2D.Raycast(aggro_area.position, viradoP_Esquerda == 1 ? Vector2.left : Vector2.right, distancia_alcance_ataque, playerLayer);
+         if (hitTarget.collider == true)
+        {
+            return true;
+        }
+        else //Jogador saiu do alcance do monstro depois de ser detectado uma vez
+        {
+            return false;
+        }
+        
+    }
+
     private void OnDrawGizmos() //Visualização do alcance de "visão" dos monstros
     {
-        Gizmos.DrawRay(aggro_area.position, (viradoP_Esquerda==1 ? Vector2.left : Vector2.right) * distancia_detectar_Jogador);
+        Gizmos.DrawRay(aggro_area.position, (viradoP_Esquerda == 1 ? Vector2.left : Vector2.right) * distancia_detectar_Jogador);
     }
 
     void InverterSprite()

@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 1860459474}
   - component: {fileID: 1860459477}
   - component: {fileID: 1860459476}
-  - component: {fileID: 1860459475}
+  - component: {fileID: 1860459478}
   m_Layer: 0
   m_Name: Echostase_Sprite
   m_TagString: Monstro
@@ -359,20 +359,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1860459475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860459471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 733db31943c308c4daf56e7e6200a2de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dano: 1
-  playerVida: {fileID: 0}
 --- !u!70 &1860459476
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -435,6 +421,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1860459478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860459471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aec1761094179f143bcdb9cb47c7fc81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1860459477}
+  aggro_area: {fileID: 1258129744}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  layerAtacavel:
+    serializedVersion: 2
+    m_Bits: 64
+  viradoP_Esquerda: 1
+  distancia_raycast: 1.5
+  distancia_detectar_Jogador: 2
+  distancia_alcance_ataque: 0
+  velocidade: 2
+  detectDelay: 1
+  tempoEstado: 0
+  delayAtaque: 1
+  tempo_Ataque: 2
+  velocidade_Ataque: 4
+  qtd_Dano: 1
 --- !u!1 &2032120186
 GameObject:
   m_ObjectHideFlags: 0

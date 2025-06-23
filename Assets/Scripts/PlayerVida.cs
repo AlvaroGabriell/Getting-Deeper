@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerVida : MonoBehaviour
+public class PlayerVida : MonoBehaviour, IDamageble
 {
     public static event Action PersonagemMorre;
     public float vida, vidaMaxima;
@@ -13,10 +13,14 @@ public class PlayerVida : MonoBehaviour
         vida = vidaMaxima; //TESTES: começar com 2 ou 1 vida
     }
 
-
-    public void LevarDano(float dano) //dano é enviado pelo script de inimigo
+    //dano controlado pela interface
+    public void Dano(float qtd_Dano)
     {
-        vida -= dano;
+        vida -= qtd_Dano;
+    }
+
+    private void Update()
+    {
         if (vida <= 0)
         {
             vida = 0;

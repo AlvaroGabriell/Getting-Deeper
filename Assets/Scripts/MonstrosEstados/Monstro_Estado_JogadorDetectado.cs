@@ -33,7 +33,7 @@ public class Monstro_Estado_JogadorDetectado : Monstro_Estado_Base
             //se o jogador está em alcance
             if (Time.time >= monstro.tempoEstado + monstro.delayAtaque)
             {// e deu o tempo do delay de o monstro ter registrado o jogador
-                monstro.MudarEstado(monstro.estado_Atacando);
+                monstro.MudarEstado(monstro.estado_Agressivo);
             }
         }
     }
