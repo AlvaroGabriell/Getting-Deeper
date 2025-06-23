@@ -54,7 +54,14 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
 
     void Agressivo()
     {
-        monstro.rb.velocity = new Vector2(monstro.velocidade_Ataque * monstro.viradoP_Esquerda, monstro.rb.velocity.y);
+        if (monstro.viradoP_Esquerda==1)
+            {
+                monstro.rb.velocity = new Vector2(-monstro.velocidade, monstro.rb.velocity.y);
+            }
+            else
+            {
+                monstro.rb.velocity = new Vector2(monstro.velocidade, monstro.rb.velocity.y);
+            }
     }
 }
   

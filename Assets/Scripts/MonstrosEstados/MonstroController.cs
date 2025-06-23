@@ -101,7 +101,7 @@ public class MonstroController : MonoBehaviour
         Gizmos.DrawRay(aggro_area.position, (viradoP_Esquerda == 1 ? Vector2.left : Vector2.right) * distancia_detectar_Jogador);
     }
 
-    void InverterSprite()
+    public void InverterSprite()
     {
         transform.Rotate(0, 180, 0);
         viradoP_Esquerda = -viradoP_Esquerda;
