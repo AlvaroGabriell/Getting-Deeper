@@ -14,6 +14,11 @@ public class Monstro_Estado_Idle : Monstro_Estado_Base
         base.Enter();
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();

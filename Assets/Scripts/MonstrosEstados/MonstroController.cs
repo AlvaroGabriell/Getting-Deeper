@@ -14,12 +14,14 @@ public class MonstroController : MonoBehaviour
     public Monstro_Estado_Agressivo estado_Agressivo;
     public Monstro_Estado_Atacando estado_Atacando;
 
+    public Animator anim;
+
     //Variáveis e controles de informações pertinentes a cada monstro
     public Rigidbody2D rb;
     public Transform aggro_area;
-    public LayerMask playerLayer,layersAtacavel; //22/06/25 - ver se precisa detectar cenário  
+    public LayerMask playerLayer, layersAtacavel; //22/06/25 - ver se precisa detectar cenário  
     public int viradoP_Esquerda = 1;
-    public float distancia_raycast, distancia_detectar_Jogador,distancia_alcance_ataque; //22/06/25 - ver se precisa detectar cenário  
+    public float distancia_raycast, distancia_detectar_Jogador, distancia_alcance_ataque; //22/06/25 - ver se precisa detectar cenário  
     public float velocidade; //Velocidade que o monstro se move
     public float detectDelay; //Intervalo de tempo após detectar jogador para realizar operações
     public float tempoEstado; //Tempo durante a mudança de estados
@@ -65,7 +67,7 @@ public class MonstroController : MonoBehaviour
 
     public bool DetectarJogador()
     {
-        RaycastHit2D hitPlayer = Physics2D.Raycast(aggro_area.position, viradoP_Esquerda==1 ? Vector2.left : Vector2.right, distancia_detectar_Jogador, playerLayer);
+        RaycastHit2D hitPlayer = Physics2D.Raycast(aggro_area.position, viradoP_Esquerda == 1 ? Vector2.left : Vector2.right, distancia_detectar_Jogador, playerLayer);
         //emptyobject aggro_area irá ver se o jogador está por perto
         if (hitPlayer.collider == true)
         {
@@ -83,7 +85,7 @@ public class MonstroController : MonoBehaviour
     public bool DetectarAtacavel()
     {
         RaycastHit2D hitTarget = Physics2D.Raycast(aggro_area.position, viradoP_Esquerda == 1 ? Vector2.left : Vector2.right, distancia_alcance_ataque, playerLayer);
-         if (hitTarget.collider == true)
+        if (hitTarget.collider == true)
         {
             return true;
         }
@@ -91,7 +93,7 @@ public class MonstroController : MonoBehaviour
         {
             return false;
         }
-        
+
     }
 
     private void OnDrawGizmos() //Visualização do alcance de "visão" dos monstros
@@ -112,4 +114,18 @@ public class MonstroController : MonoBehaviour
         estado_Atual.Enter();
         tempoEstado = Time.time;
     }
+
+    #region 
+    //Ataque frames
+
+    public void AnimacaoFimAtaque()
+    {
+        estado_Atual.AnimacaoFimAtaque();
+    }
+
+    public void AnimacaoAtacar()
+    {
+        estado_Atual.AnimacaoAtacar();
+    }
+    #endregion
 }

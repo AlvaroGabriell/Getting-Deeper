@@ -48,11 +48,11 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
             {
                 monstro.MudarEstado(monstro.estado_Atacando);
             }
-            Ataque();
+            Agressivo();
         }
     }
 
-    void Ataque()
+    void Agressivo()
     {
         monstro.rb.velocity = new Vector2(monstro.velocidade_Ataque * monstro.viradoP_Esquerda, monstro.rb.velocity.y);
     }

@@ -17,11 +17,13 @@ public class Monstro_Estado_Base
     public virtual void Enter()
     {
         //ao entrar num estado
+        monstro.anim.SetBool(nomeAnimacao, true);
     }
 
     public virtual void Exit()
     {
         //ao sair de um estado
+        monstro.anim.SetBool(nomeAnimacao, false);
     }
 
     public virtual void LogicUpdate()
@@ -34,5 +36,17 @@ public class Monstro_Estado_Base
     {
         //equivalente ao fixedupdate em classes sem monobehaivor
     }
+    
+     #region 
+    //Ataque frames
+
+    public virtual void AnimacaoFimAtaque() {
+       
+    }
+
+    public virtual void AnimacaoAtacar() {
+        
+    }
+    #endregion
 }
 
