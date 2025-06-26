@@ -34,7 +34,7 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
             //verificar se o jogador ainda está em alcance
             if (monstro.DetectarJogador())
             {
-                monstro.MudarEstado(monstro.estado_JogadorDetectado);
+                Agressivo();
             }
             else
             {
@@ -48,7 +48,7 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
             {
                 monstro.MudarEstado(monstro.estado_Atacando);
             }
-            Agressivo();
+            
         }
     }
 

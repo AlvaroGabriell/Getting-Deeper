@@ -21,7 +21,7 @@ public class MonstroController : MonoBehaviour
     public Transform aggro_area;
     public LayerMask playerLayer, layersAtacavel; //22/06/25 - ver se precisa detectar cenário  
     public int viradoP_Esquerda = 1;
-    public float distancia_raycast, distancia_detectar_Jogador, distancia_alcance_ataque; //22/06/25 - ver se precisa detectar cenário  
+    public float distancia_detectar_Jogador, distancia_alcance_ataque; //22/06/25 - ver se precisa detectar cenário  
     public float velocidade; //Velocidade que o monstro se move
     public float detectDelay; //Intervalo de tempo após detectar jogador para realizar operações
     public float tempoEstado; //Tempo durante a mudança de estados
@@ -36,7 +36,7 @@ public class MonstroController : MonoBehaviour
         estado_Idle = new Monstro_Estado_Idle(this, "idle");
         estado_JogadorDetectado = new Monstro_Estado_JogadorDetectado(this, "jogadorDetectado");
         estado_Agressivo = new Monstro_Estado_Agressivo(this, "agressivo");
-        estado_Atacando = new Monstro_Estado_Atacando(this, "atacando");
+        estado_Atacando = new Monstro_Estado_Atacando(this, "ataque");
 
         estado_Atual = estado_Idle;
         estado_Atual.Enter();

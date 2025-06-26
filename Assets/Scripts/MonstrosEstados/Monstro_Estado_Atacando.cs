@@ -28,7 +28,8 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-    }
+             
+    } 
 
      #region 
     //Ataque frames
