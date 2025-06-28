@@ -30,7 +30,7 @@ public class UIHandler : MonoBehaviour
         menuStack.Push(menu); // Adiciona o novo menu no topo da pilha
     }
 
-    // Use essa função para fechar o menu atual e reativar o anterior
+    // Use essa função para fechar o menu atual e reativar o anterior, se houver
     public void FecharMenuAtual()
     {
         if (menuStack.Count > 0)
@@ -98,7 +98,7 @@ public class UIHandler : MonoBehaviour
     // Função chamada quando o jogador clica no botão "Play"
     public void OnPlay()
     {
-        MusicManager.Instance.startFadeOut(1.5F); // pausa a música do menu com fade out
+        MusicManager.Instance.startSwitchMusicWithFade(1.5F, 1.5F, MusicManager.Instance.gameplayMusic); // Inicia a música de gameplay
         FadeOutMenu(MenuInicial); // Inicia o fade out do menu inicial
         gameStarted = true; // ativa a animação de entrada
     }
@@ -142,7 +142,7 @@ public class UIHandler : MonoBehaviour
     {
         Time.timeScale = 1f; // Retoma o tempo do jogo
         SceneManager.LoadScene("Principal"); // Retorna ao menu principal
-        MusicManager.Instance.PlayMenuMusic(true); // Reinicia a música do menu
+        MusicManager.Instance.PlayMusic(true, MusicManager.Instance.menuMusic); // Reinicia a música do menu
     }
 
     public void HandleEscape()

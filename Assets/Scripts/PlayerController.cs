@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
         if (gameController.isPaused) return; // Não processa movimento se o jogo estiver pausado
-        if (carregandoPulo) return; // Não processa movimento se o jogador estiver carregando um pulo
+        //if (carregandoPulo) return; // Não processa movimento se o jogador estiver carregando um pulo
 
         if (horizontalMovement == -1)
         {
@@ -254,7 +254,7 @@ public class PlayerController : MonoBehaviour
             1.5F * Time.deltaTime
         );
 
-        // Se o jogador chegou à posição desejada, ativa a câmera principal, desativa a auxiliar e ativa o controle do jogador
+        // Se o jogador chegou à posição desejada, ativa a câmera principal, desativa a câmera auxiliar e ativa o controle do jogador
         if (Vector2.Distance(player.transform.position, playerTargetPosition.position) < 0.01f)
         {
             animator.SetBool("cinematicaDePlay", false);

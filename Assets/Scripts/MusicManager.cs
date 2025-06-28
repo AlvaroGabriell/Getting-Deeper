@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class MusicManager : MonoBehaviour
     public static MusicManager Instance { get; private set; }
     private static AudioSource audioSource;
     public AudioClip menuMusic;
+    public AudioClip gameplayMusic;
     [SerializeField] public Slider musicSlider;
     private int mostRecentCoroutineID = 0;
 
@@ -31,6 +33,7 @@ public class MusicManager : MonoBehaviour
     {
         if (menuMusic != null)
         {
+            PlayMusic(true, menuMusic); // Inicia a música do menu
             startFadeIn(1.5F); // Inicia com um fade in de 1.5 segundos
         }
 
@@ -56,7 +59,7 @@ public class MusicManager : MonoBehaviour
         audioSource.volume = volume;
     }
 
-    public void PlayMenuMusic(bool resetSong, AudioClip newSong = null)
+    public void PlayMusic(bool resetSong, AudioClip newSong = null)
     {
         if (newSong != null)
         {
@@ -77,18 +80,27 @@ public class MusicManager : MonoBehaviour
         audioSource.Pause(); // Pausa a música
     }
 
+    // Use esse método para iniciar o fade out da música atual
     public void startFadeOut(float duration)
     {
         mostRecentCoroutineID++;
-        StartCoroutine(FadeOutMusic(duration, mostRecentCoroutineID));
+        StartCoroutine(FadeOutMusicCoroutine(duration, mostRecentCoroutineID));
     }
+    // Use esse método para iniciar o fade in da música atual
     public void startFadeIn(float duration)
     {
         mostRecentCoroutineID++;
-        StartCoroutine(FadeInMusic(duration, mostRecentCoroutineID));
+        StartCoroutine(FadeInMusicCoroutine(duration, mostRecentCoroutineID));
+    }
+    // Use esse método para iniciar a troca de música com fade
+    public void startSwitchMusicWithFade(float fadeOutDuration, float fadeInDuration, AudioClip newClip)
+    {
+        mostRecentCoroutineID++;
+        StartCoroutine(SwitchMusicWithFade(fadeOutDuration, fadeInDuration, newClip, mostRecentCoroutineID));
     }
 
-    public IEnumerator FadeOutMusic(float duration, int myCoroutineID)
+    // Não usar esse método diretamente! Use startFadeOut
+    public IEnumerator FadeOutMusicCoroutine(float duration, int myCoroutineID)
     {
         float startVolume = audioSource.volume;
 
@@ -102,14 +114,13 @@ public class MusicManager : MonoBehaviour
         audioSource.Pause();
         audioSource.volume = startVolume; // volta volume ao original para a próxima vez
     }
-
-    public IEnumerator FadeInMusic(float duration, int myCoroutineID)
+    // Não usar esse método diretamente! Use startFadeIn
+    public IEnumerator FadeInMusicCoroutine(float duration, int myCoroutineID)
     {
         float startVolume = 0f;
         float targetVolume = audioSource.volume;
 
         audioSource.volume = startVolume; // Começa com volume 0 para o fade in
-        PlayMenuMusic(false, menuMusic); // Garante que a música esteja tocando
 
         while (audioSource.volume < targetVolume)
         {
@@ -117,5 +128,14 @@ public class MusicManager : MonoBehaviour
             audioSource.volume += targetVolume * Time.deltaTime / duration;
             yield return null;
         }
+    }
+    // Não usar esse método diretamente! Use startSwitchMusicWithFade
+    private IEnumerator SwitchMusicWithFade(float fadeOutDuration, float fadeInDuration, AudioClip newClip, int myCoroutineID)
+    {
+        yield return StartCoroutine(FadeOutMusicCoroutine(fadeOutDuration, myCoroutineID));
+
+        PlayMusic(true, newClip); // Troca a música
+
+        StartCoroutine(FadeInMusicCoroutine(fadeInDuration, myCoroutineID));
     }
 }
