@@ -12,6 +12,8 @@ public class Monstro_Estado_JogadorDetectado : Monstro_Estado_Base
     public override void Enter()
     {
         base.Enter();
+        monstro.rb.velocity = Vector2.zero; //monstro se mantém parado enquanto detecta jogador
+        
         //mudança da animação para wake
     }
 

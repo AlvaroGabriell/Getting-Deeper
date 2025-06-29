@@ -18,6 +18,7 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
     public override void Exit()
     {
         base.Exit();
+        monstro.rb.velocity = Vector2.zero;
     }
 
     public override void LogicUpdate()

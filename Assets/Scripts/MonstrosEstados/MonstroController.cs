@@ -24,8 +24,8 @@ public class MonstroController : MonoBehaviour
     public float distancia_detectar_Jogador, distancia_alcance_ataque; //22/06/25 - ver se precisa detectar cenário  
     public float velocidade; //Velocidade que o monstro se move
     public float detectDelay; //Intervalo de tempo após detectar jogador para realizar operações
-    public float tempoEstado; //Tempo durante a mudança de estados
-    public float delayAtaque; //Após Detectar inimigo o quão demora para atacar
+    public float tempoEstado; //Tempo passado após uma mudança de estados
+    public float delayAtaque = 1; //Após Detectar inimigo o quanto de tempo demora para atacar
     public float tempo_Ataque, velocidade_Ataque; //duração e velocidade dos ataques
     public float qtd_Dano; //Quanto de dano aquele monstro dá ao atacar a Beth
 
@@ -51,18 +51,7 @@ public class MonstroController : MonoBehaviour
     {
         estado_Atual.PhysicsUpdate();
 
-        /* if (!jogadorDetectado)
-         {
-             if (viradoP_Esquerda)
-             {
-                 rb.velocity = new Vector2(-velocidade, rb.velocity.y);
-             }
-             else
-             {
-                 rb.velocity = new Vector2(velocidade, rb.velocity.y);
-             }
-
-         } */
+        
     }
 
     public bool DetectarJogador()

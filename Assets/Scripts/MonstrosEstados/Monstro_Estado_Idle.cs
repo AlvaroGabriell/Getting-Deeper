@@ -11,7 +11,9 @@ public class Monstro_Estado_Idle : Monstro_Estado_Base
 
     public override void Enter()
     {
+        monstro.rb.velocity = Vector2.zero;
         base.Enter();
+        
     }
 
     public override void Exit()

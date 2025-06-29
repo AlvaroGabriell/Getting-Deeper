@@ -17,12 +17,14 @@ public class Monstro_Estado_Base
     public virtual void Enter()
     {
         //ao entrar num estado
+        Debug.Log("Entrou no estado: "+nomeAnimacao);
         monstro.anim.SetBool(nomeAnimacao, true);
     }
 
     public virtual void Exit()
     {
         //ao sair de um estado
+        Debug.Log("Saiu do estado: "+nomeAnimacao);
         monstro.anim.SetBool(nomeAnimacao, false);
     }
 

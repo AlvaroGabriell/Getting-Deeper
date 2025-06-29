@@ -113668,7 +113668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &156191423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113691,13 +113691,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   viradoP_Esquerda: 1
-  distancia_detectar_Jogador: 2.5
-  distancia_alcance_ataque: 0.55
-  velocidade: 0.5
+  distancia_detectar_Jogador: 2.4
+  distancia_alcance_ataque: 0.6
+  velocidade: 0.75
   detectDelay: 1
   tempoEstado: 0
-  delayAtaque: 1
-  tempo_Ataque: 2
+  delayAtaque: 0.75
+  tempo_Ataque: 1
   velocidade_Ataque: 0.5
   qtd_Dano: 1
 --- !u!70 &156191424
@@ -113761,7 +113761,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 2
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &156191426
 Animator:
   serializedVersion: 5
@@ -113844,7 +113844,7 @@ Transform:
   m_GameObject: {fileID: 156191422}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.22, y: -4.14, z: 0}
+  m_LocalPosition: {x: -10.13, y: -4.29, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -114401,7 +114401,7 @@ Transform:
   m_GameObject: {fileID: 356142081}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.036499977, y: -0.08299999, z: 0}
+  m_LocalPosition: {x: -0.024, y: -0.08299999, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
