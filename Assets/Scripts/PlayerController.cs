@@ -16,10 +16,11 @@ public class PlayerController : MonoBehaviour
     public Camera mainCamera, staticCamera;
     public GameController gameController;
     public Animator animator;
-    public GameObject lanterna;
+    public GameObject lanterna, luzCapacete;
     PolygonCollider2D playerCollider;
     SpriteRenderer sr;
     Rigidbody2D rb;
+    GameObject nota;
 
     [Header("Player Movement")]
     public float moveSpeed = 1.8f, jumpForce = 4.4f;
@@ -146,11 +147,13 @@ public class PlayerController : MonoBehaviour
         {
             sr.flipX = true;
             lanterna.transform.rotation = Quaternion.Euler(0, 0, 90); // Inverte a lanterna quando o jogador se move para a esquerda
+            luzCapacete.transform.localPosition = new Vector3(-0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
         }
         else if (horizontalMovement == 1)
         {
             sr.flipX = false;
             lanterna.transform.rotation = Quaternion.Euler(0, 0, -90); // Inverte a lanterna quando o jogador se move para a esquerda
+            luzCapacete.transform.localPosition = new Vector3(0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
         }
     }
 
@@ -186,7 +189,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //Chamado quando o jogador pressiona Escape (ESC) ou o botão de pausa
+    //Chamado quando o jogador pressiona Escape (ESC) ou o botão de pausa (Ainda não tem)
     public void Pause(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -202,13 +205,40 @@ public class PlayerController : MonoBehaviour
             if (lanterna.activeSelf)
             {
                 lanterna.SetActive(false);
+                luzCapacete.SetActive(false);
                 SFXManager.Instance.PlaySFX("LanternOff");
             }
             else
             {
                 lanterna.SetActive(true);
+                luzCapacete.SetActive(true);
                 SFXManager.Instance.PlaySFX("LanternOn");
             }
+        }
+    }
+
+    public void Interagir(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (nota != null)
+            {
+                FindObjectOfType<UIHandler>().MostrarDica(nota.GetComponent<NoteHandler>().GetNoteType());
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Interativo"))
+        {
+            nota = collision.gameObject;
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Interativo"))
+        {
+            nota = null;
         }
     }
 

@@ -10,8 +10,9 @@ public class UIHandler : MonoBehaviour
 {
     public PlayerController playerController;
     public GameController gameController;
-    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu;
+    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu, HintNoteMenu;
     public GameObject player;
+    public Sprite[] dicasSprites = new Sprite[3]; // Array para armazenar as sprites das dicas
     private CanvasGroup canvasGroup;
     bool gameStarted = false, playerReachedPosition = false, fadeIn = false, fadeOut = false;
     private Stack<GameObject> menuStack = new Stack<GameObject>();
@@ -157,21 +158,29 @@ public class UIHandler : MonoBehaviour
             // Se estiver no menu de pausa, resume o jogo
             OnResume();
         }
+        else if (HintNoteMenu.activeSelf)
+        {
+            // Se estiver no menu de dica, fecha o menu de dica
+            FecharMenuAtual(); // Fecha o menu de dica
+            player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Enable(); // Reativa o mapa de ações do jogador
+        }
         else
         {
             // Se estiver no jogo rodando, pausa o jogo
             gameController.PauseGame();
             AbrirMenu(PauseMenu); // Abre o menu de pausa
-            player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable(); // Desativa o mapa de ações do jogador
+            player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable(); // Desativa TODO o mapa de ações do jogador
             player.GetComponent<PlayerInput>().actions.FindAction("Pausar").Enable(); // Reativa a ação de pausar para permitir que o jogador retome o jogo
         }
     }
 
     public void FadeInMenu(GameObject menu)
-    {
+    { // Se for usar a função, verifica se ela tá funcionando corretamente por causa do "AbrirMenu"
         canvasGroup = menu.GetComponent<CanvasGroup>();
         if (canvasGroup != null)
         {
+            canvasGroup.alpha = 0f; // Reseta a opacidade do menu para 0
+            AbrirMenu(menu); // Abre o menu
             fadeIn = true;
             canvasGroup.interactable = true; // Ativa a interatividade do menu durante o fade in
         }
@@ -181,7 +190,7 @@ public class UIHandler : MonoBehaviour
         }
     }
     public void FadeOutMenu(GameObject menu)
-    {
+    { // O "FecharMenuAtual" é chamado no Update, então não precisa chamar aqui
         canvasGroup = menu.GetComponent<CanvasGroup>();
         if (canvasGroup != null)
         {
@@ -192,6 +201,35 @@ public class UIHandler : MonoBehaviour
         {
             Debug.LogWarning("CanvasGroup component not found on the menu GameObject.");
         }
+    }
+
+    public void MostrarDica(int TipoDica)
+    {
+        player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable(); // Desativa o mapa de ações do jogador para evitar movimentação enquanto a dica é exibida
+        player.GetComponent<PlayerInput>().actions.FindAction("Pausar").Enable(); // Reativa a ação de pausar para permitir que o jogador retome o jogo
+        switch (TipoDica)
+        {
+            case 1:
+                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[0]; // Exibe a dica 1
+                break;
+            case 2:
+                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[1]; // Exibe a dica 2
+                break;
+            case 3:
+                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[2]; // Exibe a dica 3
+                break;
+            default:
+                Debug.LogWarning("Tipo de dica inválido: " + TipoDica); // Exibe um aviso se o tipo de dica for inválido
+                return;
+        }
+        // TODO: Fazer um SFX de som de papel
+
+        AbrirMenu(HintNoteMenu); // Abre o menu de dicas
+    }
+    public void FecharDica()
+    {
+        FecharMenuAtual(); // Fecha o menu de dicas
+        player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Enable(); // Reativa o mapa de ações do jogador
     }
 
     public void chamarGameOver()
