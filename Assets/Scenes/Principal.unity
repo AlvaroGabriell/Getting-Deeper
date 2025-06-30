@@ -113691,7 +113691,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   viradoP_Esquerda: 1
-  distancia_detectar_Jogador: 2.4
+  distancia_detectar_Jogador: 2
   distancia_alcance_ataque: 0.6
   velocidade: 0.75
   detectDelay: 1
@@ -113729,7 +113729,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.10683489, y: -0.09944677}
