@@ -20,7 +20,7 @@ public class MonstroController : MonoBehaviour
     public Rigidbody2D rb;
     public Transform aggro_area;
     public LayerMask playerLayer, layersAtacavel; //22/06/25 - ver se precisa detectar cenário  
-    public int viradoP_Esquerda = 1;
+    public int direcaoVirado = 1; //direçãoVirado (antigamente viradoP_Esquerda)
     public float distancia_detectar_Jogador, distancia_alcance_ataque; //22/06/25 - ver se precisa detectar cenário  
     public float velocidade; //Velocidade que o monstro se move
     public float detectDelay; //Intervalo de tempo após detectar jogador para realizar operações
@@ -56,7 +56,7 @@ public class MonstroController : MonoBehaviour
 
     public bool DetectarJogador()
     {
-        RaycastHit2D hitPlayer = Physics2D.Raycast(aggro_area.position, viradoP_Esquerda == 1 ? Vector2.left : Vector2.right, distancia_detectar_Jogador, playerLayer);
+        RaycastHit2D hitPlayer = Physics2D.Raycast(aggro_area.position, direcaoVirado == 1 ? Vector2.left : Vector2.right, distancia_detectar_Jogador, playerLayer);
         //emptyobject aggro_area irá ver se o jogador está por perto
         if (hitPlayer.collider == true)
         {
@@ -73,7 +73,7 @@ public class MonstroController : MonoBehaviour
 
     public bool DetectarAtacavel()
     {
-        RaycastHit2D hitTarget = Physics2D.Raycast(aggro_area.position, viradoP_Esquerda == 1 ? Vector2.left : Vector2.right, distancia_alcance_ataque, playerLayer);
+        RaycastHit2D hitTarget = Physics2D.Raycast(aggro_area.position, direcaoVirado == 1 ? Vector2.left : Vector2.right, distancia_alcance_ataque, playerLayer);
         if (hitTarget.collider == true)
         {
             return true;
@@ -87,13 +87,14 @@ public class MonstroController : MonoBehaviour
 
     private void OnDrawGizmos() //Visualização do alcance de "visão" dos monstros
     {
-        Gizmos.DrawRay(aggro_area.position, (viradoP_Esquerda == 1 ? Vector2.left : Vector2.right) * distancia_detectar_Jogador);
+        //Gizmos.DrawRay(aggro_area.position, (viradoP_Esquerda == 1 ? Vector2.left : Vector2.right) * distancia_detectar_Jogador);
+        Gizmos.DrawRay(aggro_area.position, (direcaoVirado == 1 ? Vector2.left : Vector2.right) * distancia_alcance_ataque);
     }
 
     public void InverterSprite()
     {
         transform.Rotate(0, 180, 0);
-        viradoP_Esquerda = -viradoP_Esquerda;
+        direcaoVirado = -direcaoVirado;
     }
     //mudança de estados da... máquina de estados
     public void MudarEstado(Monstro_Estado_Base novoEstado)

@@ -35,7 +35,7 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
             //verificar se o jogador ainda está em alcance
             if (monstro.DetectarJogador())
             {
-                Agressivo();
+                monstro.MudarEstado(monstro.estado_JogadorDetectado);
             }
             else
             {
@@ -45,6 +45,7 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
         }
         else
         {
+            Agressivo();
             if (monstro.DetectarAtacavel())
             {
                 monstro.MudarEstado(monstro.estado_Atacando);
@@ -55,7 +56,7 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
 
     void Agressivo()
     {
-        if (monstro.viradoP_Esquerda==1)
+        if (monstro.direcaoVirado==1)
             {
                 monstro.rb.velocity = new Vector2(-monstro.velocidade, monstro.rb.velocity.y);
             }

@@ -113690,9 +113690,9 @@ MonoBehaviour:
   layersAtacavel:
     serializedVersion: 2
     m_Bits: 64
-  viradoP_Esquerda: 1
-  distancia_detectar_Jogador: 2
-  distancia_alcance_ataque: 0.6
+  direcaoVirado: 1
+  distancia_detectar_Jogador: 2.5
+  distancia_alcance_ataque: 0.58
   velocidade: 0.75
   detectDelay: 1
   tempoEstado: 0
@@ -113732,8 +113732,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.10683489, y: -0.09944677}
-  m_Size: {x: 0.13027859, y: 0.30749702}
+  m_Offset: {x: -0.17164278, y: -0.09944677}
+  m_Size: {x: 0.25989437, y: 0.30749702}
   m_Direction: 0
 --- !u!50 &156191425
 Rigidbody2D:

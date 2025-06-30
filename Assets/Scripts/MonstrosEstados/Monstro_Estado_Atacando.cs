@@ -12,7 +12,7 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
     public override void Enter()
     {
         base.Enter();
-
+        //Agressivo();
     }
 
     public override void Exit()
@@ -28,20 +28,24 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-             
-    } 
 
-     #region 
+    }
+
+    #region 
     //Ataque frames
 
-    public override void AnimacaoFimAtaque() {
+    public override void AnimacaoFimAtaque()
+    {
         base.AnimacaoFimAtaque();
-        monstro.MudarEstado(monstro.estado_Idle);
+        Debug.Log("AAAAAAAAAAAAAAAAAA");
+        monstro.anim.SetBool("ataque", false);
+        monstro.MudarEstado(monstro.estado_JogadorDetectado);
     }
 
     public override void AnimacaoAtacar()
     {
         base.AnimacaoAtacar();
+        Debug.Log("BBBBBBBBBBBBBBBBBBBBBBBA");
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(monstro.aggro_area.position, monstro.distancia_alcance_ataque, monstro.layersAtacavel);
         foreach (Collider2D hitCollider in hitColliders)
         {
@@ -54,4 +58,16 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
         //após um ataque executado, mudar o estado do monstro
     }
     #endregion
+    
+    void Agressivo()
+    {
+        if (monstro.direcaoVirado==1)
+            {
+                monstro.rb.velocity = new Vector2(-monstro.velocidade, monstro.rb.velocity.y);
+            }
+            else
+            {
+                monstro.rb.velocity = new Vector2(monstro.velocidade, monstro.rb.velocity.y);
+            }
+    }
 }
