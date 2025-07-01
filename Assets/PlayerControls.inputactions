@@ -80,7 +80,16 @@
                 {
                     "name": "Interagir",
                     "type": "Button",
-                    "id": "cce59cf0-9824-4255-8d88-92612fcd5d5a",
+                    "id": "56b249df-7b05-4ea8-916e-279a557e168f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rastejar",
+                    "type": "Button",
+                    "id": "19efe8b6-18e1-4b37-a486-a41dbbb47dbc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -376,12 +385,23 @@
                 },
                 {
                     "name": "",
-                    "id": "89a5d92b-48a8-44c9-8b3c-624aff163617",
+                    "id": "089e99fe-2e89-4df0-a431-573431ad4b27",
                     "path": "<Keyboard>/#(E)",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Interagir",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78758b81-8fb9-4091-826f-9e4a01c97771",
+                    "path": "<Keyboard>/#(X)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Rastejar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

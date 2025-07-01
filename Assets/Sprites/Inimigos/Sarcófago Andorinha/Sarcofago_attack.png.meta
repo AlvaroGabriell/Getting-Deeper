@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 384f15a971e50ba40a1243084857a540
+guid: 801499242fea6b041b26bb9ad537a771
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,152 +93,144 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Escorpiao_ground_0
+      name: Escorpiao_attack_0
       rect:
         serializedVersion: 2
-        x: 24
-        y: 0
-        width: 42
-        height: 6
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81ee72042ac9b3f47ad99fc93fdcc936
-      internalID: 1027822722
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Escorpiao_ground_3
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 0
-        width: 42
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e995f2b6939e1ce40b645e12c46e60f1
-      internalID: -335024917
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Escorpiao_ground_4
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 0
-        width: 46
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 07f66dbe994656047a7aa90829edd80f
-      internalID: 1281203992
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Escorpiao_ground_5
-      rect:
-        serializedVersion: 2
-        x: 263
-        y: 0
-        width: 49
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ad7bb3d3b5eaf94fac2e17f0e87dbe8
-      internalID: -690579653
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Escorpiao_ground_6
-      rect:
-        serializedVersion: 2
-        x: 345
-        y: 0
-        width: 49
-        height: 37
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e9aadd72bfe1754a84e0866f7c9882b
-      internalID: -591416879
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Escorpiao_ground_7
-      rect:
-        serializedVersion: 2
-        x: 425
-        y: 0
-        width: 45
-        height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 54b3b82255b0a884785c708eda594426
-      internalID: 1404978634
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Escorpiao_ground_8
-      rect:
-        serializedVersion: 2
-        x: 505
+        x: 25
         y: 0
         width: 45
         height: 42
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 424f73284c9f8a44b9396ef1bc23e4ea
-      internalID: -1230130300
+      spriteID: b9fd0a935b510854c9d299840687add1
+      internalID: 1343298566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Escorpiao_attack_1
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 0
+        width: 45
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8cb56e9b36cab24184ac57dd3389454
+      internalID: -376832625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Escorpiao_attack_2
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 0
+        width: 53
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c73d8d91d7ed34449034aa4a7cb92e0
+      internalID: 480508001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Escorpiao_attack_3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 54
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68561c9155207b647ad5a54788dcaa9a
+      internalID: 771585552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Escorpiao_attack_4
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 0
+        width: 54
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 640efcbfd7d46fe46b56a57471294243
+      internalID: -1588697990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Escorpiao_attack_5
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0
+        width: 50
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40dd4a6d3cc53744386a1fcda7e1e850
+      internalID: -531403630
       vertices: []
       indices: 
       edges: []
@@ -254,15 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Escorpiao_ground_0: 1027822722
-      Escorpiao_ground_1: -111958838
-      Escorpiao_ground_2: -836689015
-      Escorpiao_ground_3: -335024917
-      Escorpiao_ground_4: 1281203992
-      Escorpiao_ground_5: -690579653
-      Escorpiao_ground_6: -591416879
-      Escorpiao_ground_7: 1404978634
-      Escorpiao_ground_8: -1230130300
+      Escorpiao_attack_0: 1343298566
+      Escorpiao_attack_1: -376832625
+      Escorpiao_attack_2: 480508001
+      Escorpiao_attack_3: 771585552
+      Escorpiao_attack_4: -1588697990
+      Escorpiao_attack_5: -531403630
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

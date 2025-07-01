@@ -113668,7 +113668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &156191423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115155,7 +115155,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.391529, y: 0.93874407, z: -10.000511}
+  m_LocalPosition: {x: 0.78310776, y: 0.9380307, z: -10.000511}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129916,8 +129916,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: cce59cf0-9824-4255-8d88-92612fcd5d5a
+    m_ActionId: 56b249df-7b05-4ea8-916e-279a557e168f
     m_ActionName: Player/Interagir[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1922951889}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Rastejar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 19efe8b6-18e1-4b37-a486-a41dbbb47dbc
+    m_ActionName: Player/Rastejar[/Keyboard/x]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -130815,6 +130831,31 @@ MonoBehaviour:
   - name: LanternOff
     audioClips:
     - {fileID: 8300000, guid: 180d8119ad09d234ba965aa57a10e373, type: 3}
+  - name: GetNote
+    audioClips:
+    - {fileID: 8300000, guid: 7ff5e2ae29fbbbb4abb656743e7d89b6, type: 3}
+    - {fileID: 8300000, guid: cad5141b71a9d124681c322091977e77, type: 3}
+    - {fileID: 8300000, guid: 6c9ae916bca54be41a60cb3300fceaf2, type: 3}
+  - name: LeaveNote
+    audioClips:
+    - {fileID: 8300000, guid: c0a9ad62251b44e4280f7f059106c3de, type: 3}
+    - {fileID: 8300000, guid: 8320d797655964e439ef80bfa2dc34e4, type: 3}
+    - {fileID: 8300000, guid: c0e61bd0d532dc04c974399caef262ed, type: 3}
+  - name: DrippingWater
+    audioClips:
+    - {fileID: 8300000, guid: 3943566ae31aa4942a379754788fd2f6, type: 3}
+    - {fileID: 8300000, guid: dd876a2f5cea3374ebe118c627b755fe, type: 3}
+    - {fileID: 8300000, guid: 8a2aff21e6929e745a1594ea44daed7c, type: 3}
+    - {fileID: 8300000, guid: 9e595c6418434e740bb15d64158adf1e, type: 3}
+    - {fileID: 8300000, guid: e2cfc43c27eafa44295f7a2a2481432c, type: 3}
+    - {fileID: 8300000, guid: 68ad062f4ba1bf541abcd7b11a5b1353, type: 3}
+    - {fileID: 8300000, guid: 1e4b031b1cae59a4caea616141f5f96d, type: 3}
+    - {fileID: 8300000, guid: 707291816ff00a54394e8a04df74edfb, type: 3}
+    - {fileID: 8300000, guid: bf3dac7dcad712e40bd4c8ab4c8fd518, type: 3}
+    - {fileID: 8300000, guid: 23a3e1ae2d146cc47aec18fa5724e31e, type: 3}
+    - {fileID: 8300000, guid: d0106ad230a466d46a17190e9b0e5b1a, type: 3}
+    - {fileID: 8300000, guid: 0ac5c57a7febe34478cf5d54645b3382, type: 3}
+    - {fileID: 8300000, guid: 346b66633791ae94ca6aee88b61dc9b5, type: 3}
 --- !u!82 &2028095215
 AudioSource:
   m_ObjectHideFlags: 0
@@ -133436,7 +133477,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113719809}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 

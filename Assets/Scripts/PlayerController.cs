@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement")]
     public float moveSpeed = 1.8f, jumpForce = 4.4f;
     float horizontalMovement = 0.0f, tempoSegurandoPulo = 0.0f;
-    bool keyShift = false, keyControl = false, estaAgachado = false, estadoAnteriorAgachado = false, carregandoPulo = false;
+    bool keyShift = false, keyControl = false, keyX = false;
+    bool estaRastejando = false, estadoAnteriorRastejando = false, estaAgachado = false, estadoAnteriorAgachado = false, carregandoPulo = false;
 
     [Header("Cinematic")]
     public Transform playerTargetPosition;
@@ -57,19 +58,20 @@ public class PlayerController : MonoBehaviour
     // This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
     void FixedUpdate()
     {
-        estaAgachado = keyControl && !keyShift;
-
-        if (!estaAgachado && estadoAnteriorAgachado && !CanGetUp())
-        {
-            // Força manter agachado mesmo que o jogador solte o CTRL
-            estaAgachado = true;
-        }
+        // Pega os estados de agachamento e rastejamento
+        PegarEstados();
 
         if (estaAgachado != estadoAnteriorAgachado) estadoAnteriorAgachado = estaAgachado;
+        if( estaRastejando != estadoAnteriorRastejando) estadoAnteriorRastejando = estaRastejando;
 
         if (!carregandoPulo)
         { // Se o jogador não estiver carregando um pulo, processa o movimento
-            if (estaAgachado || (!estaAgachado && estadoAnteriorAgachado && !CanGetUp()))
+            if (estaRastejando || (!estaRastejando && estadoAnteriorRastejando && !CanGetUp()))
+            {
+                // Se não houver espaço suficiente acima, mantem a velocidade de rastejamento
+                rb.velocity = new Vector2(horizontalMovement * moveSpeed * 0.4f, rb.velocity.y);
+            }
+            else if (estaAgachado || (!estaAgachado && estadoAnteriorAgachado && !CanGetUp()))
             {
                 // Se não houver espaço suficiente acima, mantem a velocidade de agachamento
                 rb.velocity = new Vector2(horizontalMovement * moveSpeed * 0.5f, rb.velocity.y);
@@ -93,14 +95,8 @@ public class PlayerController : MonoBehaviour
     /// Update is called every frame, if the MonoBehaviour is enabled.
     void Update()
     {
-        estaAgachado = keyControl && !keyShift;
-
-        // Impede o jogador de levantar se não houver espaço suficiente acima
-        if (!estaAgachado && estadoAnteriorAgachado && !CanGetUp())
-        {
-            // Força manter agachado mesmo que o jogador solte o CTRL
-            estaAgachado = true;
-        }
+        // Pega os estados de agachamento e rastejamento
+        PegarEstados();
 
         // Ajusta a hitbox do jogador se o estado de agachamento mudou
         if (estaAgachado != estadoAnteriorAgachado)
@@ -108,9 +104,15 @@ public class PlayerController : MonoBehaviour
             AjustarHitbox(estaAgachado);
             estadoAnteriorAgachado = estaAgachado;
         }
+        if (estaRastejando != estadoAnteriorRastejando)
+        {
+            // TODO: Ajustar hitbox para rastejando
+            estadoAnteriorRastejando = estaRastejando;
+        }
 
         if (carregandoPulo)
         {
+            // A mecânica de (pulo x tempo segurando) é calculada na linha 181, mas o tempo é contado aqui
             tempoSegurandoPulo += Time.deltaTime * 2.2f;
             animator.SetFloat("tempoSegurandoPulo", tempoSegurandoPulo);
         }
@@ -119,20 +121,48 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("velocidadeJogador", Mathf.Abs(horizontalMovement));
         animator.SetFloat("velocidadeY", rb.velocity.y);
         animator.SetBool("isGrounded", IsGrounded());
-        if (estaAgachado)
+
+        if (estaRastejando)
         {
             animator.SetBool("correndo", false);
+            animator.SetBool("rastejando", true);
+            animator.SetBool("agachado", false);
+        }
+        else if (estaAgachado)
+        {
+            animator.SetBool("correndo", false);
+            animator.SetBool("rastejando", false);
             animator.SetBool("agachado", true);
         }
-        else if (keyShift && !keyControl)
+        else if (keyShift)
         {
             animator.SetBool("correndo", true);
             animator.SetBool("agachado", false);
+            animator.SetBool("rastejando", false);
         }
         else
         {
             animator.SetBool("correndo", false);
             animator.SetBool("agachado", false);
+            animator.SetBool("rastejando", false);
+        }
+    }
+
+    private void PegarEstados()
+    {
+        estaRastejando = keyX && !keyShift;
+        estaAgachado = keyControl && !keyShift && !estaRastejando;
+
+        // Impede o jogador de levantar se não houver espaço suficiente acima
+        if (!estaAgachado && estadoAnteriorAgachado && !CanGetUp())
+        {
+            // Força manter agachado mesmo que o jogador solte o CTRL
+            estaAgachado = true;
+        }
+        if (!estaRastejando && estadoAnteriorRastejando && !CanGetUp())
+        {
+            // Força manter rastejando mesmo que o jogador aperte o X
+            estaRastejando = true;
         }
     }
 
@@ -167,6 +197,12 @@ public class PlayerController : MonoBehaviour
     public void Agachar(InputAction.CallbackContext context)
     {
         keyControl = context.control.IsPressed();
+    }
+
+    // Chamado quando o jogador pressiona a tecla de rastejar
+    public void Rastejar(InputAction.CallbackContext context)
+    {
+        if (context.performed) keyX = !keyX; // Alterna o estado de rastejar ao pressionar a tecla X
     }
 
     //Chamado quando o jogador pressiona a tecla de pular
@@ -219,10 +255,17 @@ public class PlayerController : MonoBehaviour
 
     public void Interagir(InputAction.CallbackContext context)
     {
+        UIHandler uiHandler = FindObjectOfType<UIHandler>();
         if (context.performed)
         {
+            if (uiHandler.HintNoteMenu.activeSelf)
+            {
+                uiHandler.FecharDica(); // Fecha o menu de dica se estiver aberto
+                return;
+            }
             if (nota != null)
             {
+                SFXManager.Instance.PlaySFX("GetNote");
                 FindObjectOfType<UIHandler>().MostrarDica(nota.GetComponent<NoteHandler>().GetNoteType());
             }
         }

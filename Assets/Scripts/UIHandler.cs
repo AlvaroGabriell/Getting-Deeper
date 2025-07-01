@@ -161,8 +161,7 @@ public class UIHandler : MonoBehaviour
         else if (HintNoteMenu.activeSelf)
         {
             // Se estiver no menu de dica, fecha o menu de dica
-            FecharMenuAtual(); // Fecha o menu de dica
-            player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Enable(); // Reativa o mapa de ações do jogador
+            FecharDica();
         }
         else
         {
@@ -207,6 +206,7 @@ public class UIHandler : MonoBehaviour
     {
         player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable(); // Desativa o mapa de ações do jogador para evitar movimentação enquanto a dica é exibida
         player.GetComponent<PlayerInput>().actions.FindAction("Pausar").Enable(); // Reativa a ação de pausar para permitir que o jogador retome o jogo
+        player.GetComponent<PlayerInput>().actions.FindActionMap("Player").FindAction("Interagir").Enable(); // Reativa a ação de interagir para permitir que o jogador feche o menu de dica pelo mesmo botão
         switch (TipoDica)
         {
             case 1:
@@ -228,6 +228,7 @@ public class UIHandler : MonoBehaviour
     }
     public void FecharDica()
     {
+        SFXManager.Instance.PlaySFX("LeaveNote");
         FecharMenuAtual(); // Fecha o menu de dicas
         player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Enable(); // Reativa o mapa de ações do jogador
     }

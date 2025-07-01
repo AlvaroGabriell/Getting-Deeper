@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: "Sprite-escorpi\xE3o"
+  - name: Sprite-Sarcofago
     originalName: 
     pivot: {x: 0.59999996, y: -2.2558138}
     alignment: 9
@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 45
       height: 43
-    spriteID: 29b9de7e84707bd4abb7e79c722df470
+    spriteID: 119d77f2a8dce6b46b2ef6e67c6891ea
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,13 +144,13 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1701809195
-    name: "Sprite-escorpi\xE3o"
+    guid: 996718143
+    name: Sprite-Sarcofago
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: "Sprite-escorpi\xE3o"
+    - name: Sprite-Sarcofago
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -158,7 +158,7 @@ ScriptedImporter:
         y: 97
         width: 45
         height: 43
-      spriteId: 29b9de7e84707bd4abb7e79c722df470
+      spriteId: 119d77f2a8dce6b46b2ef6e67c6891ea
     linkedCells: []
     parentIndex: -1
   platformSettings:

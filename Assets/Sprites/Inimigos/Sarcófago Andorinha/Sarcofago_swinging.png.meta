@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 801499242fea6b041b26bb9ad537a771
+guid: 814f07b072f73c845b5b79b6b7ca8d26
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,11 +93,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Escorpiao_attack_0
+      name: Escorpiao_swinging_0
       rect:
         serializedVersion: 2
         x: 25
@@ -111,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9fd0a935b510854c9d299840687add1
-      internalID: 1343298566
+      spriteID: 1608d23691450204cb8c9a6360085334
+      internalID: -466777730
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Escorpiao_attack_1
+      name: Escorpiao_swinging_1
       rect:
         serializedVersion: 2
         x: 105
         y: 0
-        width: 45
-        height: 39
+        width: 44
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8cb56e9b36cab24184ac57dd3389454
-      internalID: -376832625
+      spriteID: 09564d593b30e44458b13ac39d820626
+      internalID: -1997628093
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Escorpiao_attack_2
+      name: Escorpiao_swinging_2
       rect:
         serializedVersion: 2
-        x: 177
+        x: 185
         y: 0
-        width: 53
-        height: 39
+        width: 43
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c73d8d91d7ed34449034aa4a7cb92e0
-      internalID: 480508001
+      spriteID: f5e078ad819060142a167d2ebffe1787
+      internalID: 1371615090
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Escorpiao_attack_3
+      name: Escorpiao_swinging_3
       rect:
         serializedVersion: 2
-        x: 256
+        x: 265
         y: 0
-        width: 54
-        height: 39
+        width: 44
+        height: 41
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,50 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68561c9155207b647ad5a54788dcaa9a
-      internalID: 771585552
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Escorpiao_attack_4
-      rect:
-        serializedVersion: 2
-        x: 335
-        y: 0
-        width: 54
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 640efcbfd7d46fe46b56a57471294243
-      internalID: -1588697990
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Escorpiao_attack_5
-      rect:
-        serializedVersion: 2
-        x: 420
-        y: 0
-        width: 50
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 40dd4a6d3cc53744386a1fcda7e1e850
-      internalID: -531403630
+      spriteID: f571e0386352c6d498976386773bbe85
+      internalID: 472050559
       vertices: []
       indices: 
       edges: []
@@ -233,12 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Escorpiao_attack_0: 1343298566
-      Escorpiao_attack_1: -376832625
-      Escorpiao_attack_2: 480508001
-      Escorpiao_attack_3: 771585552
-      Escorpiao_attack_4: -1588697990
-      Escorpiao_attack_5: -531403630
+      Escorpiao_swinging_0: -466777730
+      Escorpiao_swinging_1: -1997628093
+      Escorpiao_swinging_2: 1371615090
+      Escorpiao_swinging_3: 472050559
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
