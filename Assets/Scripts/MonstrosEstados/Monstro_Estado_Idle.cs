@@ -11,9 +11,7 @@ public class Monstro_Estado_Idle : Monstro_Estado_Base
 
     public override void Enter()
     {
-        monstro.rb.velocity = Vector2.zero;
         base.Enter();
-        
     }
 
     public override void Exit()
@@ -34,5 +32,7 @@ public class Monstro_Estado_Idle : Monstro_Estado_Base
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        monstro.rb.velocity = Vector2.zero;
+        //Monstro para de se mexer inicialmente ao detectar um jogador
     }
 }

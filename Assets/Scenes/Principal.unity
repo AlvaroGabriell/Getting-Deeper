@@ -113692,13 +113692,13 @@ MonoBehaviour:
     m_Bits: 64
   direcaoVirado: 1
   distancia_detectar_Jogador: 2.5
-  distancia_alcance_ataque: 0.58
+  distancia_alcance_ataque: 0.6
   velocidade: 0.75
-  detectDelay: 1
+  detectDelay: 0.75
   tempoEstado: 0
   delayAtaque: 0.75
-  tempo_Ataque: 1
-  velocidade_Ataque: 0.5
+  tempo_Ataque: 2
+  velocidade_Ataque: 0.8
   qtd_Dano: 1
 --- !u!70 &156191424
 CapsuleCollider2D:

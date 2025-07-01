@@ -13,14 +13,11 @@ public class Monstro_Estado_JogadorDetectado : Monstro_Estado_Base
     {
         base.Enter();
         monstro.rb.velocity = Vector2.zero; //monstro se mantém parado enquanto detecta jogador
-        
-        //mudança da animação para wake
     }
 
     public override void Exit()
     {
         base.Exit();
-        //retorno da animação pra idle
     }
 
     public override void LogicUpdate()

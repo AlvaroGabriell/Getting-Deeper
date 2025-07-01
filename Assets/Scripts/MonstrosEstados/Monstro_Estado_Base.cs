@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monstro_Estado_Base
+public class Monstro_Estado_Base //Todos os outros estados herdam desse
 { //Maquina de estados para os monstros
     protected MonstroController monstro;
     protected string nomeAnimacao;
@@ -41,7 +41,6 @@ public class Monstro_Estado_Base
     
      #region 
     //Ataque frames
-
     public virtual void AnimacaoFimAtaque() {
        
     }

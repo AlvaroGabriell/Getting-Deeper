@@ -18,7 +18,6 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
     public override void Exit()
     {
         base.Exit();
-        monstro.rb.velocity = Vector2.zero;
     }
 
     public override void LogicUpdate()
@@ -39,18 +38,17 @@ public class Monstro_Estado_Agressivo : Monstro_Estado_Base
             }
             else
             {
-                //senão...retornar idle
+                //senão...retornar a idle
                 monstro.MudarEstado(monstro.estado_Idle);
             }
         }
         else
         {
-            Agressivo();
             if (monstro.DetectarAtacavel())
             {
                 monstro.MudarEstado(monstro.estado_Atacando);
             }
-            
+            Agressivo();
         }
     }
 

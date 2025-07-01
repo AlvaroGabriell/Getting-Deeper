@@ -12,7 +12,6 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
     public override void Enter()
     {
         base.Enter();
-        //Agressivo();
     }
 
     public override void Exit()
@@ -34,18 +33,18 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
     #region 
     //Ataque frames
 
-    public override void AnimacaoFimAtaque()
+    public override void AnimacaoFimAtaque() //Final do evento de monstro realizar um ataque
     {
         base.AnimacaoFimAtaque();
-        Debug.Log("AAAAAAAAAAAAAAAAAA");
-        monstro.anim.SetBool("ataque", false);
-        monstro.MudarEstado(monstro.estado_JogadorDetectado);
+        //Debug.Log("AAAAAAAAAAAAAAAAAA");
+        monstro.anim.SetBool("ataque", false); //após um ataque executado, mudar o estado do monstro
+        monstro.MudarEstado(monstro.estado_Agressivo);
     }
 
-    public override void AnimacaoAtacar()
+    public override void AnimacaoAtacar() //Começo do evento de monstro realizar um ataque
     {
         base.AnimacaoAtacar();
-        Debug.Log("BBBBBBBBBBBBBBBBBBBBBBBA");
+        //Debug.Log("BBBBBBBBBBBBBBBBBBBBBBBA");
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(monstro.aggro_area.position, monstro.distancia_alcance_ataque, monstro.layersAtacavel);
         foreach (Collider2D hitCollider in hitColliders)
         {
@@ -55,19 +54,7 @@ public class Monstro_Estado_Atacando : Monstro_Estado_Base
                 damageble.Dano(monstro.qtd_Dano);
             }
         }
-        //após um ataque executado, mudar o estado do monstro
+        
     }
     #endregion
-    
-    void Agressivo()
-    {
-        if (monstro.direcaoVirado==1)
-            {
-                monstro.rb.velocity = new Vector2(-monstro.velocidade, monstro.rb.velocity.y);
-            }
-            else
-            {
-                monstro.rb.velocity = new Vector2(monstro.velocidade, monstro.rb.velocity.y);
-            }
-    }
 }
