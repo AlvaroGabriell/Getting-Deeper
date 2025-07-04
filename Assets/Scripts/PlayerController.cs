@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         PegarEstados();
 
         if (estaAgachado != estadoAnteriorAgachado) estadoAnteriorAgachado = estaAgachado;
-        if( estaRastejando != estadoAnteriorRastejando) estadoAnteriorRastejando = estaRastejando;
+        if (estaRastejando != estadoAnteriorRastejando) estadoAnteriorRastejando = estaRastejando;
 
         if (!carregandoPulo)
         { // Se o jogador não estiver carregando um pulo, processa o movimento
@@ -278,7 +278,8 @@ public class PlayerController : MonoBehaviour
             nota = collision.gameObject;
         }
     }
-    void OnTriggerExit2D(Collider2D collision) {
+    void OnTriggerExit2D(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("Interativo"))
         {
             nota = null;
@@ -315,31 +316,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //Chamado quando o jogador pressiona o botão de "Play" no menu inicial
-    public bool walkOnScreen()
-    {
-        // Move o jogador até a posição desejada
-        animator.Play("Walk");
-        animator.SetBool("cinematicaDePlay", true);
-        player.transform.position = Vector2.MoveTowards(
-            player.transform.position,
-            playerTargetPosition.position,
-            1.5F * Time.deltaTime
-        );
-
-        // Se o jogador chegou à posição desejada, ativa a câmera principal, desativa a câmera auxiliar e ativa o controle do jogador
-        if (Vector2.Distance(player.transform.position, playerTargetPosition.position) < 0.01f)
-        {
-            animator.SetBool("cinematicaDePlay", false);
-            mainCamera.GetComponent<Camera>().enabled = true;
-            staticCamera.gameObject.SetActive(false);
-            player.GetComponent<PlayerInput>().enabled = true;
-            return true;
-        }
-
-        return false;
-    }
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -358,7 +334,7 @@ public class PlayerController : MonoBehaviour
         animator.enabled = true;
         rb.bodyType = RigidbodyType2D.Dynamic; // Reativar movimentação
     }
-    
+
     // -------------- Player SFX Methods --------------
     public void PlaySteps()
     {
@@ -375,5 +351,34 @@ public class PlayerController : MonoBehaviour
     public void PlayLanding()
     {
         SFXManager.Instance.PlaySFX("Landing");
+    }
+    
+    // ------------------------ Machinima ------------------------
+    //Chamado quando o jogador pressiona o botão de "Play" no menu inicial
+    public bool walkOnScreen()
+    {
+        // Move o jogador até a posição desejada
+        animator.Play("Walk");
+        animator.SetBool("cinematicaDePlay", true);
+        player.transform.position = Vector2.MoveTowards(
+            player.transform.position,
+            playerTargetPosition.position,
+            1.5F * Time.deltaTime
+        );
+
+        // Se o jogador chegou à posição desejada, ativa a câmera principal, desativa a câmera auxiliar e ativa o controle do jogador
+        if (Vector2.Distance(player.transform.position, playerTargetPosition.position) < 0.01f)
+        {
+            animator.SetBool("cinematicaDePlay", false);
+            mainCamera.GetComponent<Camera>().enabled = true;
+            staticCamera.gameObject.SetActive(false);
+            lanterna.SetActive(true);
+            luzCapacete.SetActive(true);
+            SFXManager.Instance.PlaySFX("LanternOn");
+            player.GetComponent<PlayerInput>().enabled = true;
+            return true;
+        }
+
+        return false;
     }
 }
