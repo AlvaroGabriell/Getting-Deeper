@@ -22,11 +22,12 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     GameObject nota;
 
-    [Header("Player Movement")]
+    [Header("Player Control")]
     public float moveSpeed = 1.8f, jumpForce = 4.4f;
-    float horizontalMovement = 0.0f, tempoSegurandoPulo = 0.0f;
-    bool keyShift = false, keyControl = false, keyX = false;
+    float horizontalMovement = 0.0f, lastMoveDirection = 0.0f, tempoSegurandoPulo = 0.0f;
+    bool keyShift = false, keyControl = false, keyX = false, isAiming = false;
     bool estaRastejando = false, estadoAnteriorRastejando = false, estaAgachado = false, estadoAnteriorAgachado = false, carregandoPulo = false;
+    Vector2 aimDirection;
 
     [Header("Cinematic")]
     public Transform playerTargetPosition;
@@ -64,32 +65,8 @@ public class PlayerController : MonoBehaviour
         if (estaAgachado != estadoAnteriorAgachado) estadoAnteriorAgachado = estaAgachado;
         if (estaRastejando != estadoAnteriorRastejando) estadoAnteriorRastejando = estaRastejando;
 
-        if (!carregandoPulo)
-        { // Se o jogador não estiver carregando um pulo, processa o movimento
-            if (estaRastejando || (!estaRastejando && estadoAnteriorRastejando && !CanGetUp()))
-            {
-                // Se não houver espaço suficiente acima, mantem a velocidade de rastejamento
-                rb.velocity = new Vector2(horizontalMovement * moveSpeed * 0.4f, rb.velocity.y);
-            }
-            else if (estaAgachado || (!estaAgachado && estadoAnteriorAgachado && !CanGetUp()))
-            {
-                // Se não houver espaço suficiente acima, mantem a velocidade de agachamento
-                rb.velocity = new Vector2(horizontalMovement * moveSpeed * 0.5f, rb.velocity.y);
-            }
-            else if (keyShift && !keyControl)
-            {
-                rb.velocity = new Vector2(horizontalMovement * moveSpeed * 1.5f, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
-            }
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            // Se o jogador estiver carregando um pulo, não processa movimento horizontal
-        }
+        HandleMoviment();
+        HandleLanternAiming();
     }
 
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -110,6 +87,29 @@ public class PlayerController : MonoBehaviour
             estadoAnteriorRastejando = estaRastejando;
         }
 
+        SetarVariaveisDoAnimator();
+    }
+
+    private void PegarEstados()
+    { // Função para pegar os estados de agachamento, rastejamento e etc.
+        estaRastejando = keyX && !keyShift;
+        estaAgachado = keyControl && !keyShift && !estaRastejando;
+
+        // Impede o jogador de levantar se não houver espaço suficiente acima
+        if (!estaAgachado && estadoAnteriorAgachado && !CanGetUp())
+        {
+            // Força manter agachado mesmo que o jogador solte o CTRL
+            estaAgachado = true;
+        }
+        if (!estaRastejando && estadoAnteriorRastejando && !CanGetUp())
+        {
+            // Força manter rastejando mesmo que o jogador aperte o X
+            estaRastejando = true;
+        }
+    }
+
+    private void SetarVariaveisDoAnimator()
+    { // Função pra setar as variáveis do Animator
         if (carregandoPulo)
         {
             // A mecânica de (pulo x tempo segurando) é calculada na linha 181, mas o tempo é contado aqui
@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("rastejando", false);
             animator.SetBool("agachado", true);
         }
-        else if (keyShift)
+        else if (keyShift && IsLookingWhereIsGoing())
         {
             animator.SetBool("correndo", true);
             animator.SetBool("agachado", false);
@@ -148,22 +148,89 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PegarEstados()
-    {
-        estaRastejando = keyX && !keyShift;
-        estaAgachado = keyControl && !keyShift && !estaRastejando;
+    private void HandleMoviment()
+    { // Função para lidar com o movimento do jogador. NÃO use essa função, ela já é chamada onde precisa.
+        if (!carregandoPulo)
+        { // Se o jogador não estiver carregando um pulo, processa o movimento
+            float moveSpeedModifier = 1.0f;
 
-        // Impede o jogador de levantar se não houver espaço suficiente acima
-        if (!estaAgachado && estadoAnteriorAgachado && !CanGetUp())
-        {
-            // Força manter agachado mesmo que o jogador solte o CTRL
-            estaAgachado = true;
+            if (estaRastejando || (!estaRastejando && estadoAnteriorRastejando && !CanGetUp()))
+            {
+                // Se o jogador estiver agachado ou rastejando e não pode levantar, aplica uma velocidade reduzida
+                moveSpeedModifier = 0.4f;
+            }
+            else if (estaAgachado || (!estaAgachado && estadoAnteriorAgachado && !CanGetUp()))
+            {
+                // Se o jogador estiver agachado ou rastejando e não pode levantar, aplica uma velocidade reduzida
+                moveSpeedModifier = 0.5f;
+            }
+            else if (keyShift && !keyControl)
+            {
+                // Se o jogador estiver correndo, aplica uma velocidade maior
+                moveSpeedModifier = 1.5f;
+            }
+
+            if (!IsLookingWhereIsGoing())
+            {
+                moveSpeedModifier = 0.5f; // Se o jogador não está olhando para onde está indo, reduz a velocidade
+                if(estaAgachado || estaRastejando)
+                {
+                    moveSpeedModifier = 0.38f; // Se o jogador não está olhando para onde está indo e está agachado ou rastejando, reduz ainda mais a velocidade
+                }
+            }
+
+            rb.velocity = new Vector2(horizontalMovement * moveSpeed * moveSpeedModifier, rb.velocity.y);
         }
-        if (!estaRastejando && estadoAnteriorRastejando && !CanGetUp())
+        else
         {
-            // Força manter rastejando mesmo que o jogador aperte o X
-            estaRastejando = true;
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            // Se o jogador estiver carregando um pulo, não processa movimento horizontal
         }
+    }
+
+    private void HandleLanternAiming()
+    {
+        if (isAiming)
+        {
+            Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
+            Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(mouseScreenPosition);
+            aimDirection = ((Vector2)mouseWorldPosition - (Vector2)lanterna.transform.position).normalized;
+        }
+        else
+        {
+            aimDirection = new Vector2(lastMoveDirection, 0).normalized; // Usa a última direção de movimento se não estiver mirando
+        }
+
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+
+        lanterna.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
+        // Atualiza a direção do jogador com base na posição do mouse
+        if (aimDirection.x < 0)
+        {
+            sr.flipX = true;
+            luzCapacete.transform.localPosition = new Vector3(-0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+        }
+        else
+        {
+            sr.flipX = false;
+            luzCapacete.transform.localPosition = new Vector3(0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+        }
+    }
+
+    public bool IsLookingWhereIsGoing()
+    {
+        // Verifica se o jogador está olhando para onde está indo
+        return (horizontalMovement >= 0 && aimDirection.x >= 0) || (horizontalMovement <= 0 && aimDirection.x <= 0);
+    }
+
+    public bool IsAiming()
+    {
+        return isAiming;
+    }
+    public Vector2 GetAimDirection()
+    {
+        return aimDirection;
     }
 
     //Chamado quando o jogador pressiona alguma tecla de movimento
@@ -173,24 +240,28 @@ public class PlayerController : MonoBehaviour
         if (gameController.isPaused) return; // Não processa movimento se o jogo estiver pausado
         //if (carregandoPulo) return; // Não processa movimento se o jogador estiver carregando um pulo
 
-        if (horizontalMovement == -1)
+        if (!isAiming)
         {
-            sr.flipX = true;
-            lanterna.transform.rotation = Quaternion.Euler(0, 0, 90); // Inverte a lanterna quando o jogador se move para a esquerda
-            luzCapacete.transform.localPosition = new Vector3(-0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+            if (horizontalMovement == -1)
+            {
+                sr.flipX = true;
+                luzCapacete.transform.localPosition = new Vector3(-0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+            }
+            else if (horizontalMovement == 1)
+            {
+                sr.flipX = false;
+                luzCapacete.transform.localPosition = new Vector3(0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+            }
         }
-        else if (horizontalMovement == 1)
-        {
-            sr.flipX = false;
-            lanterna.transform.rotation = Quaternion.Euler(0, 0, -90); // Inverte a lanterna quando o jogador se move para a esquerda
-            luzCapacete.transform.localPosition = new Vector3(0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
-        }
+
+        if (horizontalMovement != 0) lastMoveDirection = horizontalMovement; // Define a última direção de movimento do jogador
     }
 
     //Chamado quando o jogador pressiona a tecla de correr
     public void Correr(InputAction.CallbackContext context)
     {
         keyShift = context.control.IsPressed();
+        if (!IsLookingWhereIsGoing()) keyShift = false; // Não permite correr se o jogador não está olhando para onde está indo
     }
 
     //Chamado quando o jogador pressiona a tecla de agachar
@@ -268,6 +339,18 @@ public class PlayerController : MonoBehaviour
                 SFXManager.Instance.PlaySFX("GetNote");
                 FindObjectOfType<UIHandler>().MostrarDica(nota.GetComponent<NoteHandler>().GetNoteType());
             }
+        }
+    }
+
+    public void Mirar(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isAiming = true;
+        }
+        else if (context.canceled)
+        {
+            isAiming = false;
         }
     }
 

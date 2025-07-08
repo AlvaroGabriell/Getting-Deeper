@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    public Rigidbody2D playerRb;
+    public PlayerController playerController;
     public CinemachineVirtualCamera cam;
     private CinemachineFramingTransposer transposer;
 
@@ -22,13 +23,17 @@ public class CameraHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rb.velocity.x > 0.1)
+        if(playerController.GetAimDirection().x > 0)
         {
-            targetScreenX = 0.5f;
+            targetScreenX = 0.5f; // Aim right
         }
-        else if (rb.velocity.x < -0.1)
+        else if(playerController.GetAimDirection().x < 0)
         {
-            targetScreenX = 0.87f;
+            targetScreenX = 1.0f; // Aim left
+        }
+        else
+        {
+            targetScreenX = 0.5f; // Fallback
         }
 
         // Smoothly interpolate the screenX value

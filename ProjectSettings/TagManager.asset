@@ -8,6 +8,8 @@ TagManager:
   - Light
   - Alvo
   - Interativo
+  - Lanterna
+  - ChaseZone
   layers:
   - Default
   - TransparentFX
