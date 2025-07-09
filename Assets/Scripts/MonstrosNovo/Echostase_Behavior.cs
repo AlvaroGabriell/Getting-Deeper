@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Echostase_Behavior : MonoBehaviour
 {
-    public float velocidade; //velocidade que o Echostase se movimenta
+    public float velocidade = 4f; //velocidade que o Echostase se movimenta
     public float qtd_Dano; //dano dado por esse monstro;
     public bool agressivo = false; //estado inicial do Echostase
     private GameObject player; //pegar informações relacionadas ao jogador
