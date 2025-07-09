@@ -220,13 +220,19 @@ public class UIHandler : MonoBehaviour
         switch (TipoDica)
         {
             case 1:
-                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[0]; // Exibe a dica 1
+                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[0]; // Echostase
                 break;
             case 2:
-                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[1]; // Exibe a dica 2
+                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[1]; // Aracnise
                 break;
             case 3:
-                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[2]; // Exibe a dica 3
+                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[2]; // Sarcófago Andorinha
+                break;
+            case 4:
+                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[3]; // Mariposa
+                break;
+            case 5:
+                HintNoteMenu.transform.Find("Dica").GetComponent<Image>().sprite = dicasSprites[4]; // Sombra
                 break;
             default:
                 Debug.LogWarning("Tipo de dica inválido: " + TipoDica); // Exibe um aviso se o tipo de dica for inválido

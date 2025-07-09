@@ -125,7 +125,7 @@ public class AracniseController : MonstroBase
         if (!isTocandoPlayer())
         {
             Vector2 dir = (player.position - transform.position).normalized;
-            rb.velocity = new Vector2(dir.x * moveSpeed, 0f);
+            rb.velocity = dir * moveSpeed;
         }
         if (isTocandoPlayer())
         {
@@ -150,6 +150,7 @@ public class AracniseController : MonstroBase
 
     void ResetAracnise()
     {
+        Debug.Log("Resetando Aracnise");
         transform.position = spawnPosition;
         sp.flipX = false;
         rb.velocity = Vector2.zero;

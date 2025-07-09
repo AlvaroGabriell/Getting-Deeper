@@ -11,9 +11,9 @@ public class NoteHandler : MonoBehaviour
     public GameObject pressECanvas;
     SpriteResolver resolver;
     [Header("Tipo de Nota (Você deve escolher o tipo de nota que deseja)")]
-    [Tooltip("1. Echostase\n2. Aracnise\n3. Sarcófago Andorinha")]
-    [Range(1, 3)]
-    public int noteType; // 1: Echostase, 2: Aracnise, 3: Sarcófago Andorinha
+    [Tooltip("1. Echostase\n2. Aracnise\n3. Sarcófago Andorinha\n4. Mariposa\n5. Sombra")]
+    [Range(1, 5)]
+    public int noteType;
 
     // Start is called before the first frame update
     void Start()
