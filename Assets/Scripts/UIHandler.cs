@@ -15,6 +15,7 @@ public class UIHandler : MonoBehaviour
     public Sprite[] dicasSprites = new Sprite[3]; // Array para armazenar as sprites das dicas
     private CanvasGroup canvasGroup;
     bool gameStarted = false, playerReachedPosition = false, fadeIn = false, fadeOut = false;
+    public static bool retryGameFromStart = false;
     private Stack<GameObject> menuStack = new Stack<GameObject>();
 
     // Use essa função sempre que for necessário abrir um menu
@@ -53,11 +54,20 @@ public class UIHandler : MonoBehaviour
     {
         PlayerVida.PersonagemMorre -= chamarGameOver;
     }
+    
     // Start is called before the first frame update
     void Start()
     {
-        player.GetComponent<PlayerInput>().enabled = false; // desativa o controle do jogador
-        AbrirMenu(MenuInicial); // Abre o menu inicial
+        if (retryGameFromStart)
+        {
+            retryGameFromStart = false;
+            OnPlay(); // Inicia o jogo novamente se a variável de retry estiver ativa
+        }
+        else
+        {
+            player.GetComponent<PlayerInput>().enabled = false; // desativa o controle do jogador
+            AbrirMenu(MenuInicial); // Abre o menu inicial
+        }
     }
 
     // Update is called once per frame
@@ -222,7 +232,6 @@ public class UIHandler : MonoBehaviour
                 Debug.LogWarning("Tipo de dica inválido: " + TipoDica); // Exibe um aviso se o tipo de dica for inválido
                 return;
         }
-        // TODO: Fazer um SFX de som de papel
 
         AbrirMenu(HintNoteMenu); // Abre o menu de dicas
     }
@@ -235,11 +244,15 @@ public class UIHandler : MonoBehaviour
 
     public void chamarGameOver()
     {
-        GameOverMenu.SetActive(true);
+        AbrirMenu(GameOverMenu); // Abre o menu de Game Over
+        player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable();
+        Time.timeScale = 0f; // Pausa o jogo
     }
 
     public void RetryJogo()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        retryGameFromStart = true;
+        Time.timeScale = 1f; // Retoma o tempo do jogo
+        SceneManager.LoadScene("Principal"); // Retorna ao menu principal
     }
 }

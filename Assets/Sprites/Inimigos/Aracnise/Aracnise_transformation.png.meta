@@ -93,6 +93,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -100,12 +113,12 @@ TextureImporter:
       name: Aracnise_transformation_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 0
         y: 0
-        width: 36
-        height: 38
+        width: 50
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -121,12 +134,12 @@ TextureImporter:
       name: Aracnise_transformation_1
       rect:
         serializedVersion: 2
-        x: 87
+        x: 80
         y: 0
-        width: 39
-        height: 38
+        width: 53
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -142,12 +155,12 @@ TextureImporter:
       name: Aracnise_transformation_2
       rect:
         serializedVersion: 2
-        x: 167
+        x: 160
         y: 0
-        width: 39
-        height: 42
+        width: 80
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,12 +176,12 @@ TextureImporter:
       name: Aracnise_transformation_3
       rect:
         serializedVersion: 2
-        x: 247
+        x: 240
         y: 0
-        width: 56
-        height: 42
+        width: 80
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,12 +197,12 @@ TextureImporter:
       name: Aracnise_transformation_4
       rect:
         serializedVersion: 2
-        x: 327
+        x: 320
         y: 0
-        width: 54
-        height: 42
+        width: 80
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -205,12 +218,12 @@ TextureImporter:
       name: Aracnise_transformation_5
       rect:
         serializedVersion: 2
-        x: 407
+        x: 400
         y: 0
-        width: 55
-        height: 42
+        width: 80
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -226,12 +239,12 @@ TextureImporter:
       name: Aracnise_transformation_6
       rect:
         serializedVersion: 2
-        x: 484
+        x: 480
         y: 0
-        width: 67
-        height: 41
+        width: 80
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -247,18 +260,18 @@ TextureImporter:
       name: Aracnise_transformation_7
       rect:
         serializedVersion: 2
-        x: 576
+        x: 560
         y: 0
-        width: 55
-        height: 39
+        width: 80
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a274cb3be9d652148b2383579fc5772d
+      spriteID: bee707bc0c9e0c149bb19b1be46fddf0
       internalID: -215783843
       vertices: []
       indices: 

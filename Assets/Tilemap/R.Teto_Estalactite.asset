@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
+  m_Name: R.Teto_Estalactite
+  m_EditorClassIdentifier: 
+  m_DefaultSprite: {fileID: 0}
+  m_DefaultGameObject: {fileID: 0}
+  m_DefaultColliderType: 1
+  m_TilingRules:
+  - m_Id: 0
+    m_Sprites:
+    - {fileID: -96950612, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 552470505, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -1731309812, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 1853472147, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 212082082, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -97936943, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -106373333, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 1649276447, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 222927112, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 160602001, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -724927277, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 88914188, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 1416161827, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -1984710406, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 1111846381, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 179829303, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.526
+    m_Output: 1
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    m_Neighbors: 02000000
+    m_NeighborPositions:
+    - {x: 0, y: 1, z: 0}
+    m_RuleTransform: 0
+  - m_Id: 1
+    m_Sprites:
+    - {fileID: -1521901033, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 2099876148, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -731493367, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 978213288, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 1414818424, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -902598239, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 2019948869, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 397515828, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -402891035, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 545838468, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -30303626, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -1287419946, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: -435800717, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 1877635615, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 1060806709, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    - {fileID: 1179760637, guid: 3e103e93797bf5945b01d155331bc6b0, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_Output: 1
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    m_Neighbors: 01000000
+    m_NeighborPositions:
+    - {x: 0, y: 1, z: 0}
+    m_RuleTransform: 0

@@ -93,6 +93,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -100,10 +113,10 @@ TextureImporter:
       name: Aracnise_walk_0
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 0
-        width: 55
-        height: 39
+        width: 80
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,10 +134,10 @@ TextureImporter:
       name: Aracnise_walk_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 80
         y: 0
-        width: 56
-        height: 38
+        width: 80
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,10 +155,10 @@ TextureImporter:
       name: Aracnise_walk_2
       rect:
         serializedVersion: 2
-        x: 176
+        x: 160
         y: 0
-        width: 64
-        height: 38
+        width: 80
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,10 +176,10 @@ TextureImporter:
       name: Aracnise_walk_3
       rect:
         serializedVersion: 2
-        x: 256
+        x: 240
         y: 0
-        width: 64
-        height: 39
+        width: 80
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,10 +197,10 @@ TextureImporter:
       name: Aracnise_walk_4
       rect:
         serializedVersion: 2
-        x: 336
+        x: 320
         y: 0
-        width: 60
-        height: 39
+        width: 80
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,10 +218,10 @@ TextureImporter:
       name: Aracnise_walk_5
       rect:
         serializedVersion: 2
-        x: 416
+        x: 400
         y: 0
-        width: 62
-        height: 38
+        width: 80
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,10 +239,10 @@ TextureImporter:
       name: Aracnise_walk_6
       rect:
         serializedVersion: 2
-        x: 496
+        x: 480
         y: 0
-        width: 53
-        height: 39
+        width: 80
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

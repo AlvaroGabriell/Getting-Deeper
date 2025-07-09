@@ -78,12 +78,12 @@ public class PlayerController : MonoBehaviour
         // Ajusta a hitbox do jogador se o estado de agachamento mudou
         if (estaAgachado != estadoAnteriorAgachado)
         {
-            AjustarHitbox(estaAgachado);
+            AjustarHitboxAgachado(estaAgachado);
             estadoAnteriorAgachado = estaAgachado;
         }
         if (estaRastejando != estadoAnteriorRastejando)
         {
-            // TODO: Ajustar hitbox para rastejando
+            AjustarHitboxRastejando(estaRastejando);
             estadoAnteriorRastejando = estaRastejando;
         }
 
@@ -209,12 +209,29 @@ public class PlayerController : MonoBehaviour
         if (aimDirection.x < 0)
         {
             sr.flipX = true;
-            luzCapacete.transform.localPosition = new Vector3(-0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+
+            if (estaAgachado) luzCapacete.transform.localPosition = new Vector3(-0.065F, 0.153f, luzCapacete.transform.localPosition.z);
+            else if (estaRastejando) luzCapacete.transform.localPosition = new Vector3(-0.28F, -0.097f, luzCapacete.transform.localPosition.z);
+            // Se o jogador não estiver agachado nem rastejando, mantém a posição da luz do capacete
+            else luzCapacete.transform.localPosition = new Vector3(-0.065F, 0.25f, luzCapacete.transform.localPosition.z);
+
+            if (estaAgachado) lanterna.transform.localPosition = new Vector3(-0.065f, 0.152f, lanterna.transform.localPosition.z);
+            else if (estaRastejando) lanterna.transform.localPosition = new Vector3(-0.26f, -0.097f, lanterna.transform.localPosition.z);
+            else lanterna.transform.localPosition = new Vector3(-0.065f, 0.25f, lanterna.transform.localPosition.z);
+
         }
         else
         {
             sr.flipX = false;
-            luzCapacete.transform.localPosition = new Vector3(0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+
+            if (estaAgachado) luzCapacete.transform.localPosition = new Vector3(0.065F, 0.153f, luzCapacete.transform.localPosition.z);
+            else if (estaRastejando) luzCapacete.transform.localPosition = new Vector3(0.28F, -0.097f, luzCapacete.transform.localPosition.z);
+            // Se o jogador não estiver agachado nem rastejando, mantém a posição da luz do capacete
+            else luzCapacete.transform.localPosition = new Vector3(0.065F, 0.25f, luzCapacete.transform.localPosition.z);
+
+            if (estaAgachado) lanterna.transform.localPosition = new Vector3(0.065f, 0.152f, lanterna.transform.localPosition.z);
+            else if (estaRastejando) lanterna.transform.localPosition = new Vector3(0.26f, -0.097f, lanterna.transform.localPosition.z);
+            else lanterna.transform.localPosition = new Vector3(0.065f, 0.25f, lanterna.transform.localPosition.z);
         }
     }
 
@@ -245,12 +262,18 @@ public class PlayerController : MonoBehaviour
             if (horizontalMovement == -1)
             {
                 sr.flipX = true;
-                luzCapacete.transform.localPosition = new Vector3(-0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+                if (estaAgachado) luzCapacete.transform.localPosition = new Vector3(-0.065F, 0.153f, luzCapacete.transform.localPosition.z);
+                else if (estaRastejando) luzCapacete.transform.localPosition = new Vector3(-0.28F, -0.097f, luzCapacete.transform.localPosition.z);
+                // Se o jogador não estiver agachado nem rastejando, mantém a posição da luz do capacete
+                else luzCapacete.transform.localPosition = new Vector3(-0.065F, 0.25f, luzCapacete.transform.localPosition.z);
             }
             else if (horizontalMovement == 1)
             {
                 sr.flipX = false;
-                luzCapacete.transform.localPosition = new Vector3(0.065F, luzCapacete.transform.localPosition.y, luzCapacete.transform.localPosition.z);
+                if (estaAgachado) luzCapacete.transform.localPosition = new Vector3(0.065F, 0.153f, luzCapacete.transform.localPosition.z);
+                else if (estaRastejando) luzCapacete.transform.localPosition = new Vector3(0.28F, -0.097f, luzCapacete.transform.localPosition.z);
+                // Se o jogador não estiver agachado nem rastejando, mantém a posição da luz do capacete
+                else luzCapacete.transform.localPosition = new Vector3(0.065F, 0.25f, luzCapacete.transform.localPosition.z);
             }
         }
 
@@ -379,7 +402,7 @@ public class PlayerController : MonoBehaviour
         return !Physics2D.OverlapBox(ceilingCheck.transform.position, ceilingCheckSize, 0f, groundLayer);
     }
 
-    public void AjustarHitbox(bool diminuir)
+    public void AjustarHitboxAgachado(bool diminuir)
     {
         if (diminuir)
         {
@@ -395,6 +418,29 @@ public class PlayerController : MonoBehaviour
             points[0] = new Vector2(points[0].x, 0.334312f); // Ajusta a posição do ponto 0
             points[5] = new Vector2(points[5].x, 0.2855315f); // Ajusta a posição do ponto 5
             points[6] = new Vector2(points[6].x, 0.334312f); // Ajusta a posição do ponto 6
+            playerCollider.SetPath(0, points); // Define o Path 0 com os novos pontos
+        }
+    }
+    public void AjustarHitboxRastejando(bool diminuir)
+    {
+        if (diminuir)
+        {
+            Vector2[] points = playerCollider.GetPath(0); // Pega o Path 0
+            points[0] = new Vector2(-0.3390332f, -0.2603368f);
+            points[1] = new Vector2(-0.3118572f, -0.4873199f);
+            points[4] = new Vector2(0.3469619f, -0.4877162f);
+            points[5] = new Vector2(0.347517f, -0.03548002f);
+            points[6] = new Vector2(-0.3381195f, -0.03743219f);
+            playerCollider.SetPath(0, points); // Define o Path 0 com os novos pontos
+        }
+        else
+        {
+            Vector2[] points = playerCollider.GetPath(0); // Pega o Path 0
+            points[0] = new Vector2(-0.2803154f, 0.334312f);
+            points[1] = new Vector2(-0.2803154f, 0.0462718f);
+            points[4] = new Vector2(0.1242179f, -0.3435888f);
+            points[5] = new Vector2(0.1575317f, 0.2855315f);
+            points[6] = new Vector2(0.08915329f, 0.334312f);
             playerCollider.SetPath(0, points); // Define o Path 0 com os novos pontos
         }
     }
