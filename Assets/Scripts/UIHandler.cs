@@ -244,6 +244,7 @@ public class UIHandler : MonoBehaviour
 
     public void chamarGameOver()
     {
+        player.SetActive(false);
         AbrirMenu(GameOverMenu); // Abre o menu de Game Over
         player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable();
         Time.timeScale = 0f; // Pausa o jogo

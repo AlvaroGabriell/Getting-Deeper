@@ -8,8 +8,7 @@ public class Echostase_Behavior : MonoBehaviour
     public float qtd_Dano; //dano dado por esse monstro;
     public bool agressivo = false; //estado inicial do Echostase
     private GameObject player; //pegar informações relacionadas ao jogador
-    public Animator echoAnim; //controlar animator do Echostase e da Beth
-    bool agachando, rastejando; //pegando estados de movimento da Beth
+    public Animator echoAnim; //controlar animator do Echostase
     public Transform spawnPoint; //ponto de descanso/retorno para o Echostase, controlado por um GameObject filho do sprite
 
 
@@ -51,6 +50,7 @@ public class Echostase_Behavior : MonoBehaviour
     private void retornarDescanso()
     {
         echoAnim.SetBool("jogadorDetectado", false);
+        agressivo = false;
         transform.position = Vector2.MoveTowards(transform.position, spawnPoint.position, velocidade * Time.deltaTime);
         if (transform.position.x == spawnPoint.position.x)
         {

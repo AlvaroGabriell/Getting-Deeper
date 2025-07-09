@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player.SetActive(true);
         sr = player.GetComponent<SpriteRenderer>();
         rb = player.GetComponent<Rigidbody2D>();
         playerCollider = player.GetComponent<PolygonCollider2D>();
