@@ -19,6 +19,7 @@ public class AracniseController : MonstroBase
     private SpriteRenderer sp;
     private ChaseZoneTrigger chaseZoneTrigger;
     private bool isTransformando = false;
+    private bool jaTransformou = false;
 
     void Awake()
     {
@@ -32,6 +33,7 @@ public class AracniseController : MonstroBase
     void Update()
     {
         animator.SetFloat("velocityX", Math.Abs(rb.velocity.x));
+        
 
         if (getCurrentState() == State.Returning && IsOutsideCamera(Camera.main))
         {
@@ -64,8 +66,10 @@ public class AracniseController : MonstroBase
         {
             if (chaseZoneTrigger.isPlayerInChaseZone)
             {
+                if (jaTransformou) return; // Se já transformou, não faz nada
                 setCurrentState(State.Chasing);
                 animator.SetBool("Transformar", true);
+                jaTransformou = true;
                 isTransformando = true;
             }
         }
@@ -80,6 +84,24 @@ public class AracniseController : MonstroBase
         if (collision.CompareTag("Player"))
         {
             setTocandoPlayer(false);
+        }
+    }
+
+    void CheckIfLanternIsHitting()
+    {
+        if (jaTransformou) return;
+        // Checa se a lanterna está atingindo a Aracnise
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Lanterna") && chaseZoneTrigger.isPlayerInChaseZone)
+            {
+                setCurrentState(State.Chasing);
+                isTransformando = true;
+                animator.SetBool("Transformar", true);
+                jaTransformou = true;
+                break;
+            }
         }
     }
 
@@ -134,22 +156,8 @@ public class AracniseController : MonstroBase
         animator.SetBool("Transformar", false);
         setCurrentState(State.Idle);
         animator.Play("Aracnise_Idle");
-    }
-
-    void CheckIfLanternIsHitting()
-    {
-        // Checa se a lanterna está atingindo a Aracnise
-        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f);
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Lanterna") && chaseZoneTrigger.isPlayerInChaseZone)
-            {
-                setCurrentState(State.Chasing);
-                isTransformando = true;
-                animator.SetBool("Transformar", true);
-                break;
-            }
-        }
+        isTransformando = false;
+        jaTransformou = false;
     }
 
     bool IsOutsideCamera(Camera cam)
