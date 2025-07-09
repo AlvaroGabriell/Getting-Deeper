@@ -87,12 +87,12 @@ public class AracniseController : MonstroBase
     {
         if (rb.velocity.x < -0.1f)
         {
-            transform.Find("AracniseVisual").GetComponent<BoxCollider2D>().offset = new Vector2(0.0750062f, 0f);
+            transform.Find("AracniseVisual").GetComponent<BoxCollider2D>().offset = new Vector2(0.0750062f, -0.0455805f);
             sp.flipX = false;
         }
         else if (rb.velocity.x > 0.1f)
         {
-            transform.Find("AracniseVisual").GetComponent<BoxCollider2D>().offset = new Vector2(-0.07f, 0f);
+            transform.Find("AracniseVisual").GetComponent<BoxCollider2D>().offset = new Vector2(-0.07f, -0.0455805f);
             sp.flipX = true;
         }
     }
