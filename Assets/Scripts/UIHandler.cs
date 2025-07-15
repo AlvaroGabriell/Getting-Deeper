@@ -10,7 +10,7 @@ public class UIHandler : MonoBehaviour
 {
     public PlayerController playerController;
     public GameController gameController;
-    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu, HintNoteMenu;
+    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu, HintNoteMenu, BlackScreen;
     public GameObject player;
     public Sprite[] dicasSprites = new Sprite[3]; // Array para armazenar as sprites das dicas
     private CanvasGroup canvasGroup;
