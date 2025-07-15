@@ -16,6 +16,7 @@ public class Escorpiao_Digging : MonoBehaviour
         { //Desligando a hitbox da zona1 e ligando a da zona 2 quando o escorpião ficar agressivo
             zona1.SetActive(false);
             zona2.SetActive(true);
+            escorpiao.scorpAnim.SetBool("agressivo",true);
             escorpiao.agressivo = true;
         }
     }

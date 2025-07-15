@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class Escorpiao_Behavior : MonoBehaviour
@@ -9,7 +10,7 @@ public class Escorpiao_Behavior : MonoBehaviour
     public bool agressivo = false, aboveGround = false; //estado inicial do Escorpião e verificar se ele está acima ou abaixo do solo
     private GameObject player; //pegar informações relacionadas ao jogador
     public Animator scorpAnim; //controlar animator do Escorpião
-    public Transform spawnPoint; //ponto de descanso/retorno para o Escorpião, controlado por um GameObject filho do sprite
+    public Transform spawnPoint, abovePoint; //ponto de descanso/retorno para o Escorpião, controlado por um GameObject filho do sprite
 
 
     void Awake()
@@ -21,12 +22,16 @@ public class Escorpiao_Behavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (agressivo && aboveGround){
-            wakeUp();
+        if (agressivo){
+            //Fazer o sprite sair de baixo do solo e colocar-lo na animação de cavando para cima
+            UnityEngine.Vector3 levantando = transform.position; //Manipulando a posição Y do sprite pra cima
+            while (levantando.y <= abovePoint.position.y)
+            {
+                levantando.y += velocidade * Time.deltaTime;
+                transform.position = levantando;
+                scorpAnim.SetBool("aboveGround",true);
+            }
+            
         }
-    }
-
-    void wakeUp(){ //Fazer o sprite sair de baixo do solo e colocar-lo na animação de cavando para cima
-
     }
 }
