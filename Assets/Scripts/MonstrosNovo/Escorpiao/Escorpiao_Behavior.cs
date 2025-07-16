@@ -22,16 +22,24 @@ public class Escorpiao_Behavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (agressivo){
+        if (agressivo)
+        {
             //Fazer o sprite sair de baixo do solo e colocar-lo na animação de cavando para cima
             UnityEngine.Vector3 levantando = transform.position; //Manipulando a posição Y do sprite pra cima
             while (levantando.y <= abovePoint.position.y)
             {
                 levantando.y += velocidade * Time.deltaTime;
                 transform.position = levantando;
-                scorpAnim.SetBool("aboveGround",true);
+                scorpAnim.SetBool("aboveGround", true);
             }
-            
         }
+        if (agressivo && aboveGround){ atacarJogador(); }
+
+
+    }
+
+private void atacarJogador() //Escorpião
+    {
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, velocidade * Time.deltaTime);
     }
 }
