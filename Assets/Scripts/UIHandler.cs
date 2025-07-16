@@ -5,12 +5,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class UIHandler : MonoBehaviour
 {
     public PlayerController playerController;
     public GameController gameController;
-    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu, HintNoteMenu, BlackScreen;
+    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu, HintNoteMenu, BlackScreen, ThankYouScreen;
     public GameObject player;
     public Sprite[] dicasSprites = new Sprite[5]; // Array para armazenar as sprites das dicas
     private CanvasGroup canvasGroup;
@@ -23,6 +24,15 @@ public class UIHandler : MonoBehaviour
     public Button controlsSubmenuButton;
     public GameObject AudioSubmenu, ControlsSubmenu;
     private Button currentSelectedSubmenuButton;
+
+    [Header("Cinematic Video")]
+    public VideoClip[] clipsIniciais;
+    public VideoClip[] clipsFinais;
+    public GameObject videoPlayerHolder, videoScreen;
+    public VideoPlayer videoPlayer;
+    public float fadeDuration = 1f;
+    private bool endSequencePlayed = false;
+    public float waitAfterVideo = 0f;    // espera extra depois do vídeo (se quiser)
 
     // Use essa função sempre que for necessário abrir um menu
     // Ela garante que apenas um menu esteja ativo por vez, fechando o menu atual antes de abrir o novo
@@ -67,10 +77,12 @@ public class UIHandler : MonoBehaviour
         if (retryGameFromStart)
         {
             retryGameFromStart = false;
+            endSequencePlayed = false;
             OnPlay(); // Inicia o jogo novamente se a variável de retry estiver ativa
         }
         else
         {
+            endSequencePlayed = false;
             player.GetComponent<PlayerInput>().enabled = false; // desativa o controle do jogador
             AbrirMenu(MenuInicial); // Abre o menu inicial
         }
@@ -112,6 +124,85 @@ public class UIHandler : MonoBehaviour
     }
 
     // Main Menu
+
+    public void OnPlayFirst()
+    {
+        StartCoroutine(PlaySequence(clipsIniciais));
+    }
+
+    private IEnumerator PlaySequence(VideoClip[] clips)
+    {
+        int count = 1;
+        FadeInMenu(BlackScreen);
+        if (endSequencePlayed)
+        {
+            BlackScreen.GetComponent<CanvasGroup>().alpha = 1f;
+            BlackScreen.SetActive(true);
+        }
+        // Passa por todos os clips
+        foreach (var clip in clips)
+        {
+            if (count == 2) videoPlayer.isLooping = true;
+            if (count != 2) videoPlayer.isLooping = false;
+            count++;
+            // 1) Fade-in (canvas preto aparece)
+            //yield return StartCoroutine(FadeCanvas(1f));
+
+            // 2) Fade-out (canvas some, revelando RawImage)
+            //yield return StartCoroutine(FadeCanvas(0f));
+
+            // 3) Tocar vídeo
+            videoPlayer.clip = clip;
+            videoPlayer.Play();
+            videoScreen.SetActive(true);
+
+            // Espera até o vídeo terminar
+            while (videoPlayer.isPlaying)
+                yield return null;
+
+            // 4) espera extra se precisar
+            yield return new WaitForSeconds(2f);
+
+            // 5) Fade-in de novo antes do próximo
+            //yield return StartCoroutine(FadeCanvas(1f));
+            videoScreen.SetActive(false);
+        }
+        FadeOutMenu(BlackScreen);
+
+        // Sequência terminada! Faz fade-out final e libera gameplay
+        yield return StartCoroutine(FadeCanvas(0f));
+        if (!endSequencePlayed) OnPlay();
+        if (endSequencePlayed)
+        {
+            BlackScreen.GetComponent<CanvasGroup>().alpha = 1f;
+            BlackScreen.SetActive(true);
+            ThankYouScreen.SetActive(true);
+        }
+            
+    }
+
+    public void PlayEndSequence()
+    {
+        if (endSequencePlayed) return;
+        endSequencePlayed = true;
+        BlackScreen.GetComponent<CanvasGroup>().alpha = 1f;
+        StartCoroutine(PlaySequence(clipsFinais));
+        BlackScreen.SetActive(true);
+    }
+
+    private IEnumerator FadeCanvas(float targetAlpha)
+    {
+        float startAlpha = BlackScreen.GetComponent<CanvasGroup>().alpha;
+        float timer = 0f;
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            BlackScreen.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / fadeDuration);
+            yield return null;
+        }
+        BlackScreen.GetComponent<CanvasGroup>().alpha = targetAlpha;
+    }
+
     // Função chamada quando o jogador clica no botão "Play"
     public void OnPlay()
     {

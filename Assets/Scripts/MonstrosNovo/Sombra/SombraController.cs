@@ -25,7 +25,7 @@ public class SombraController : MonoBehaviour
     public float maxOpenTime = 5f;
     public float warningDuration = 0.8f;  // tempo de shake antes de abrir
     [Tooltip("Distância pro jogador do olho no qual vai começar a tocar o SFX")]
-    public float triggerDistance = 10f;
+    public float triggerDistance = 6f;
 
     [Header("Shake")]
     public float shakeMagnitude = 0.05f;
