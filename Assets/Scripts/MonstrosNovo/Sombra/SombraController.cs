@@ -14,7 +14,7 @@ public class SombraController : MonoBehaviour
     public LayerMask playerLayer;
     BoxCollider2D detectionZone;
 
-    [Header("Tempos")]
+    [Header("Valores")]
     [Tooltip("Tempo mínimo que o olho fica fechado antes de abrir")]
     public float minInterval = 1f;
     [Tooltip("Tempo máximo que o olho fica fechado antes de abrir")]
@@ -24,10 +24,12 @@ public class SombraController : MonoBehaviour
     [Tooltip("Tempo máximo que o olho fica aberto antes de fechar")]
     public float maxOpenTime = 5f;
     public float warningDuration = 0.8f;  // tempo de shake antes de abrir
+    [Tooltip("Distância pro jogador do olho no qual vai começar a tocar o SFX")]
+    public float triggerDistance = 10f;
 
     [Header("Shake")]
     public float shakeMagnitude = 0.05f;
-    public int shakeVibrato = 10;
+    public int shakeVibrato = 6;
 
     private Vector3 eyeInitialPos;
     private bool isEyeOpen = false;
@@ -58,6 +60,7 @@ public class SombraController : MonoBehaviour
             // 3) ABRE e detecta
             animator.ResetTrigger("CloseEye");
             animator.SetTrigger("OpenEye");
+            PlayOpenEye();
             yield return new WaitForSeconds(0.2f); // espera abrir um pouquinho
 
             isEyeOpen = true;
@@ -122,6 +125,18 @@ public class SombraController : MonoBehaviour
             }
             // nenhum ponto exposto -> totalmente coberto
             return;
+        }
+    }
+
+    public void PlayOpenEye()
+    {
+        if (player == null) return;
+
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distance <= triggerDistance)
+        {
+            SFXManager.Instance.PlaySFX("SombraOpenEye");
         }
     }
 }

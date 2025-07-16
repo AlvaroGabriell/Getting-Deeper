@@ -12,11 +12,17 @@ public class UIHandler : MonoBehaviour
     public GameController gameController;
     public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu, HintNoteMenu, BlackScreen;
     public GameObject player;
-    public Sprite[] dicasSprites = new Sprite[3]; // Array para armazenar as sprites das dicas
+    public Sprite[] dicasSprites = new Sprite[5]; // Array para armazenar as sprites das dicas
     private CanvasGroup canvasGroup;
     bool gameStarted = false, playerReachedPosition = false, fadeIn = false, fadeOut = false;
     public static bool retryGameFromStart = false;
     private Stack<GameObject> menuStack = new Stack<GameObject>();
+
+    [Header("Settings")]
+    public Button audioSubmenuButton;
+    public Button controlsSubmenuButton;
+    public GameObject AudioSubmenu, ControlsSubmenu;
+    private Button currentSelectedSubmenuButton;
 
     // Use essa função sempre que for necessário abrir um menu
     // Ela garante que apenas um menu esteja ativo por vez, fechando o menu atual antes de abrir o novo
@@ -117,6 +123,7 @@ public class UIHandler : MonoBehaviour
     // Função chamada quando o jogador clica no botão "Settings"
     public void OnSettings()
     {
+        ShowSubmenu(audioSubmenuButton); // Abre o submenu de áudio por padrão
         AbrirMenu(MenuSettings);
         foreach (Slider slider in MenuSettings.GetComponentsInChildren<Slider>())
         {
@@ -246,6 +253,38 @@ public class UIHandler : MonoBehaviour
         SFXManager.Instance.PlaySFX("LeaveNote");
         FecharMenuAtual(); // Fecha o menu de dicas
         player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Enable(); // Reativa o mapa de ações do jogador
+    }
+
+    public void ShowSubmenu(Button submenuButton)
+    {
+        if (currentSelectedSubmenuButton != null)
+        {
+            ColorBlock resetCB = currentSelectedSubmenuButton.colors;
+            resetCB.normalColor = new Color(1, 1, 1, 0.01f); // Reseta a cor normal do botão anterior
+            resetCB.highlightedColor = new Color(0.62f, 0.62f, 0.62f, 0.17f); // Reseta a cor destacada do botão anterior
+            resetCB.selectedColor = new Color(0.62f, 0.62f, 0.62f, 0.43f); // Reseta a cor selecionada do botão anterior
+            currentSelectedSubmenuButton.colors = resetCB;
+        }
+
+        currentSelectedSubmenuButton = submenuButton; // Atualiza o botão selecionado
+        ColorBlock c = currentSelectedSubmenuButton.colors;
+        Color selectedColor = new Color(0.62f, 0.62f, 0.62f, 0.43f); // Define a cor selecionada
+        c.normalColor = selectedColor;
+        c.highlightedColor = selectedColor;
+        c.pressedColor = selectedColor;
+        c.selectedColor = selectedColor;
+        currentSelectedSubmenuButton.colors = c;
+
+        if (submenuButton == audioSubmenuButton)
+        {
+            ControlsSubmenu.SetActive(false); // Desativa o submenu de controles
+            AudioSubmenu.SetActive(true); // Ativa o submenu de áudio
+        }
+        else if (submenuButton == controlsSubmenuButton)
+        {
+            AudioSubmenu.SetActive(false); // Desativa o submenu de áudio
+            ControlsSubmenu.SetActive(true); // Ativa o submenu de controles
+        }
     }
 
     public void chamarGameOver()

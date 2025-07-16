@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 40450141870ead044aebadd7a18f30a9
+guid: e881630d3365ce443bbb45afe29fb076
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -115,8 +115,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 65
-        height: 60
+        width: 114
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b6ef7e69bd0c364683d2df3575391b3
-      internalID: -1510637086
+      spriteID: 762d25d494369584080566f7f42edf31
+      internalID: 424152077
       vertices: []
       indices: 
       edges: []
@@ -134,10 +134,10 @@ TextureImporter:
       name: notas_interface_1
       rect:
         serializedVersion: 2
-        x: 65
+        x: 114
         y: 0
-        width: 65
-        height: 60
+        width: 114
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5556c7deeb0eb243adf14187ba152da
-      internalID: 705022484
+      spriteID: b5852711da0dce54aaeffac988a7a050
+      internalID: -603705944
       vertices: []
       indices: 
       edges: []
@@ -155,10 +155,10 @@ TextureImporter:
       name: notas_interface_2
       rect:
         serializedVersion: 2
-        x: 130
+        x: 228
         y: 0
-        width: 65
-        height: 60
+        width: 114
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8e445f7de1418443916a3bc262eea02
-      internalID: 168166233
+      spriteID: 4bb407768514ce948a8332092bebdc04
+      internalID: 535737894
       vertices: []
       indices: 
       edges: []
@@ -176,10 +176,10 @@ TextureImporter:
       name: notas_interface_3
       rect:
         serializedVersion: 2
-        x: 195
+        x: 342
         y: 0
-        width: 65
-        height: 60
+        width: 114
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03e479ade5bdc7246990263b1f3be8b6
-      internalID: 245120817
+      spriteID: d960a830d3f71e642b992702849d9db0
+      internalID: 1834715206
       vertices: []
       indices: 
       edges: []
@@ -197,10 +197,10 @@ TextureImporter:
       name: notas_interface_4
       rect:
         serializedVersion: 2
-        x: 260
+        x: 456
         y: 0
-        width: 65
-        height: 60
+        width: 114
+        height: 108
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 776783d6dde64424ab9fd5d44fad3e68
-      internalID: -514404512
+      spriteID: 0ebb2fb555261184ca761d1c9e9ed42b
+      internalID: 1762637200
       vertices: []
       indices: 
       edges: []
@@ -225,11 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      notas_interface_0: -1510637086
-      notas_interface_1: 705022484
-      notas_interface_2: 168166233
-      notas_interface_3: 245120817
-      notas_interface_4: -514404512
+      notas_interface_0: 424152077
+      notas_interface_1: -603705944
+      notas_interface_2: 535737894
+      notas_interface_3: 1834715206
+      notas_interface_4: 1762637200
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
