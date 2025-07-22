@@ -9,10 +9,19 @@ public class Dig2 : MonoBehaviour
         Zona de Aggro 1 e 2;
     */
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            escorpiao.scorpAnim.SetBool("agressivo", true);
+            escorpiao.agressivo = true;
+        }
+    }
+
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-        {   
+        {
             escorpiao.scorpAnim.SetBool("agressivo", true);
             escorpiao.agressivo = true;
         }

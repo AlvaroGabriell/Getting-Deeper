@@ -59,14 +59,15 @@ public class Escorpiao_Behavior : MonoBehaviour
             agressivo = false; scorpAnim.SetBool("agressivo", false);
             colider.enabled = false;
             scorpAnim.Play("Sarcofago_Dig");
-
+            scorpAnim.SetBool("aboveGround", false); aboveGround = false;
             UnityEngine.Vector3 descendo = transform.position; //Manipulando a posição Y do sprite pra cima
             while (descendo.y >= spawnPoint.position.y)
             {
                 descendo.y -= velocidade * Time.deltaTime;
                 transform.position = descendo;
-                scorpAnim.SetBool("aboveGround", false);
+
             }
+            
         }
 
 
