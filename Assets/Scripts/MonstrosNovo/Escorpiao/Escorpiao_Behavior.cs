@@ -13,6 +13,8 @@ public class Escorpiao_Behavior : MonoBehaviour
     public Transform spawnPoint, abovePoint; //ponto de descanso/retorno para o Escorpião, controlado por um GameObject filho do sprite
     public CapsuleCollider2D colider;
 
+    public Rigidbody2D rb;
+
 
     void Awake()
     {
@@ -23,6 +25,7 @@ public class Escorpiao_Behavior : MonoBehaviour
     void Start()
     {
         colider.enabled = false;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -30,16 +33,21 @@ public class Escorpiao_Behavior : MonoBehaviour
     {
         if (agressivo)
         {
+            scorpAnim.SetBool("agressivo", true);
             colider.enabled = true;
             //Fazer o sprite sair de baixo do solo e colocar-lo na animação de cavando para cima
-            UnityEngine.Vector3 levantando = transform.position; //Manipulando a posição Y do sprite pra cima
-            while (levantando.y <= abovePoint.position.y)
+            if (transform.position.y < abovePoint.position.y)
             {
-                levantando.y += velocidade * Time.deltaTime;
-                transform.position = levantando;
+                UnityEngine.Vector3 levantando = transform.position; //Manipulando a posição Y do sprite pra cima
+                while (levantando.y <= abovePoint.position.y)
+                {
+                    levantando.y += velocidade * Time.deltaTime;
+                    transform.position = levantando;
+
+                }
                 scorpAnim.SetBool("aboveGround", true);
+                aboveGround = true;
             }
-            aboveGround = true;
         }
         if (agressivo && aboveGround)
         {
@@ -49,25 +57,32 @@ public class Escorpiao_Behavior : MonoBehaviour
 
     private void atacarJogador() //Escorpião no estado agressivo atacando o jogador
     {
-        agressivo = true; aboveGround = true;
         transform.position = UnityEngine.Vector2.MoveTowards(transform.position, player.transform.position, velocidade * Time.deltaTime);
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Lanterna"))
         { //Em contato com a luz ele se torna passivo
-            agressivo = false; scorpAnim.SetBool("agressivo", false);
-            colider.enabled = false;
-            scorpAnim.Play("Sarcofago_Dig");
-            scorpAnim.SetBool("aboveGround", false); aboveGround = false;
-            UnityEngine.Vector3 descendo = transform.position; //Manipulando a posição Y do sprite pra cima
-            while (descendo.y >= spawnPoint.position.y)
-            {
-                descendo.y -= velocidade * Time.deltaTime;
-                transform.position = descendo;
+            rb.velocity = UnityEngine.Vector2.zero;
 
+            Debug.Log("NOT THE LIGHT IT BURNS");
+            colider.enabled = false;
+
+            agressivo = false; scorpAnim.SetBool("agressivo", false);
+            scorpAnim.SetBool("aboveGround", false);
+
+            scorpAnim.Play("Sarcofago_Dig");
+            if (transform.position.y > spawnPoint.position.y)
+            {
+                UnityEngine.Vector3 descendo = transform.position; //Manipulando a posição Y do sprite pra cima
+                while (descendo.y >= spawnPoint.position.y)
+                {
+                    descendo.y -= velocidade * Time.deltaTime;
+                    transform.position = descendo;
+                }
+                aboveGround = false;
             }
-            
+
         }
 
 

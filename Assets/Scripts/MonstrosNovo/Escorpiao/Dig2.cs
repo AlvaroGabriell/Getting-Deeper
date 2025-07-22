@@ -22,7 +22,6 @@ public class Dig2 : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            escorpiao.scorpAnim.SetBool("agressivo", true);
             escorpiao.agressivo = true;
         }
     }
