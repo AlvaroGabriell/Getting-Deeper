@@ -10,6 +10,7 @@ public class Echostase_Behavior : MonoBehaviour
     private GameObject player; //pegar informações relacionadas ao jogador
     public Animator echoAnim; //controlar animator do Echostase
     public Transform spawnPoint; //ponto de descanso/retorno para o Echostase, controlado por um GameObject filho do sprite
+    float distance = 0;
 
 
     void Awake()
@@ -78,6 +79,25 @@ public class Echostase_Behavior : MonoBehaviour
             {//se algo recebeu dano
                 damageble.Dano(qtd_Dano);
             }
+        }
+    }
+
+    public void PlayAwakeSFX()
+    {
+        distance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distance <= 20)
+        {
+            SFXManager.Instance.PlaySFX("EchostaseAwake");
+        }
+    }
+    public void PlayWingsSFX()
+    {
+        distance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distance <= 20)
+        {
+            SFXManager.Instance.PlaySFX("EchostaseWings");
         }
     }
 }

@@ -11,11 +11,10 @@ public class UIHandler : MonoBehaviour
 {
     public PlayerController playerController;
     public GameController gameController;
-    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu, HintNoteMenu, BlackScreen, ThankYouScreen;
+    public GameObject MenuInicial, MenuSettings, PauseMenu, AreYouSure, GameOverMenu, HintNoteMenu, BlackScreen, ThankYouScreen, CreditsMenu;
     public GameObject player;
     public Sprite[] dicasSprites = new Sprite[5]; // Array para armazenar as sprites das dicas
-    private CanvasGroup canvasGroup;
-    bool gameStarted = false, playerReachedPosition = false, fadeIn = false, fadeOut = false;
+    bool gameStarted = false, playerReachedPosition = false;
     public static bool retryGameFromStart = false;
     private Stack<GameObject> menuStack = new Stack<GameObject>();
 
@@ -33,6 +32,7 @@ public class UIHandler : MonoBehaviour
     public float fadeDuration = 1f;
     private bool endSequencePlayed = false;
     public float waitAfterVideo = 0f;    // espera extra depois do vídeo (se quiser)
+    private int count = 1;
 
     // Use essa função sempre que for necessário abrir um menu
     // Ela garante que apenas um menu esteja ativo por vez, fechando o menu atual antes de abrir o novo
@@ -84,7 +84,7 @@ public class UIHandler : MonoBehaviour
         {
             endSequencePlayed = false;
             player.GetComponent<PlayerInput>().enabled = false; // desativa o controle do jogador
-            AbrirMenu(MenuInicial); // Abre o menu inicial
+            AbrirMenu(MenuInicial);
         }
     }
 
@@ -96,44 +96,20 @@ public class UIHandler : MonoBehaviour
         {
             playerReachedPosition = playerController.walkOnScreen(); // Move o jogador até a posição de entrada
         }
-
-        // Responsável por aplicar o fade in e fade out nos menus
-        if (fadeIn)
-        {
-            if (canvasGroup.alpha < 1f)
-            {
-                canvasGroup.alpha += Time.deltaTime; // Aumenta a opacidade do menu com o tempo
-            }
-            else
-            {
-                fadeIn = false; // Para o fade in quando a opacidade atingir 1
-            }
-        }
-        if (fadeOut)
-        {
-            if (canvasGroup.alpha > 0f)
-            {
-                canvasGroup.alpha -= Time.deltaTime; // Diminui a opacidade do menu com o tempo
-            }
-            else
-            {
-                fadeOut = false; // Para o fade out quando a opacidade atingir 0
-                FecharMenuAtual(); // Fecha o menu após o fade out
-            }
-        }
     }
 
     // Main Menu
 
     public void OnPlayFirst()
     {
+        StartCoroutine(FadeMenu(MenuInicial.GetComponent<CanvasGroup>(), 1f, 0f, 1));
         StartCoroutine(PlaySequence(clipsIniciais));
     }
 
     private IEnumerator PlaySequence(VideoClip[] clips)
     {
-        int count = 1;
-        FadeInMenu(BlackScreen);
+        float videoTime = 0;
+        yield return StartCoroutine(FadeMenu(BlackScreen.GetComponent<CanvasGroup>(), 0, 1, 1));
         if (endSequencePlayed)
         {
             BlackScreen.GetComponent<CanvasGroup>().alpha = 1f;
@@ -142,41 +118,36 @@ public class UIHandler : MonoBehaviour
         // Passa por todos os clips
         foreach (var clip in clips)
         {
+            Debug.Log("Tocando o clip: " + clip.name);
             if (count == 2) videoPlayer.isLooping = true;
             if (count != 2) videoPlayer.isLooping = false;
             count++;
-            // 1) Fade-in (canvas preto aparece)
-            //yield return StartCoroutine(FadeCanvas(1f));
-
-            // 2) Fade-out (canvas some, revelando RawImage)
-            //yield return StartCoroutine(FadeCanvas(0f));
 
             // 3) Tocar vídeo
             videoPlayer.clip = clip;
             videoPlayer.Play();
-            videoScreen.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            yield return StartCoroutine(FadeMenu(videoScreen.GetComponent<CanvasGroup>(), 0, 1, 0.4f));
+
+            while (!videoPlayer.isPlaying) yield return null;
 
             // Espera até o vídeo terminar
             while (videoPlayer.isPlaying)
+            {
+                videoTime += Time.deltaTime;
+                if (videoTime > 4 && videoPlayer.isLooping) { videoPlayer.Pause(); break; }
                 yield return null;
+            }
 
-            // 4) espera extra se precisar
-            yield return new WaitForSeconds(2f);
-
-            // 5) Fade-in de novo antes do próximo
-            //yield return StartCoroutine(FadeCanvas(1f));
-            videoScreen.SetActive(false);
+            Debug.Log("Clip acabou, começando o próximo (ou não).");
+            yield return StartCoroutine(FadeMenu(videoScreen.GetComponent<CanvasGroup>(), 1, 0, 0.2f));
         }
-        FadeOutMenu(BlackScreen);
+        if(!endSequencePlayed) yield return StartCoroutine(FadeMenu(BlackScreen.GetComponent<CanvasGroup>(), 1, 0, 1f));
 
-        // Sequência terminada! Faz fade-out final e libera gameplay
-        yield return StartCoroutine(FadeCanvas(0f));
         if (!endSequencePlayed) OnPlay();
         if (endSequencePlayed)
         {
-            BlackScreen.GetComponent<CanvasGroup>().alpha = 1f;
-            BlackScreen.SetActive(true);
-            ThankYouScreen.SetActive(true);
+            AbrirMenu(ThankYouScreen);
         }
             
     }
@@ -185,29 +156,16 @@ public class UIHandler : MonoBehaviour
     {
         if (endSequencePlayed) return;
         endSequencePlayed = true;
-        BlackScreen.GetComponent<CanvasGroup>().alpha = 1f;
+        player.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable();
+        StartCoroutine(FadeMenu(BlackScreen.GetComponent<CanvasGroup>(), 0, 1, 1));
         StartCoroutine(PlaySequence(clipsFinais));
-        BlackScreen.SetActive(true);
-    }
-
-    private IEnumerator FadeCanvas(float targetAlpha)
-    {
-        float startAlpha = BlackScreen.GetComponent<CanvasGroup>().alpha;
-        float timer = 0f;
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            BlackScreen.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / fadeDuration);
-            yield return null;
-        }
-        BlackScreen.GetComponent<CanvasGroup>().alpha = targetAlpha;
     }
 
     // Função chamada quando o jogador clica no botão "Play"
     public void OnPlay()
     {
         MusicManager.Instance.startSwitchMusicWithFade(1.5F, 1.5F, MusicManager.Instance.gameplayMusic); // Inicia a música de gameplay
-        FadeOutMenu(MenuInicial); // Inicia o fade out do menu inicial
+        //FadeOutMenu(MenuInicial); // Inicia o fade out do menu inicial
         gameStarted = true; // ativa a animação de entrada
     }
 
@@ -221,6 +179,11 @@ public class UIHandler : MonoBehaviour
             if (slider.name == "MusicSlider") MusicManager.Instance.AttachSlider(slider); // Anexa o slider de volume do menu de configurações
             else if (slider.name == "SFXSlider") SFXManager.Instance.AttachSlider(slider); // Anexa o slider de volume do SFX no menu de configurações
         }
+    }
+
+    public void OnCredits()
+    {
+        AbrirMenu(CreditsMenu);
     }
 
     public void OnQuit()
@@ -261,6 +224,10 @@ public class UIHandler : MonoBehaviour
             // Se estiver na tela de Settings, age como Back
             OnBack();
         }
+        else if (AreYouSure.activeSelf)
+        {
+            OnBack();
+        }
         else if (PauseMenu.activeSelf)
         {
             // Se estiver no menu de pausa, resume o jogo
@@ -281,33 +248,22 @@ public class UIHandler : MonoBehaviour
         }
     }
 
-    public void FadeInMenu(GameObject menu)
-    { // Se for usar a função, verifica se ela tá funcionando corretamente por causa do "AbrirMenu"
-        canvasGroup = menu.GetComponent<CanvasGroup>();
-        if (canvasGroup != null)
+    private IEnumerator FadeMenu(CanvasGroup cg, float startAlpha, float endAlpha, float duration, bool menuInicial = false)
+    {
+        float t = 0f;
+        cg.alpha = startAlpha;
+        cg.gameObject.SetActive(true);
+        cg.interactable = endAlpha > startAlpha;
+        while (t < duration)
         {
-            canvasGroup.alpha = 0f; // Reseta a opacidade do menu para 0
-            AbrirMenu(menu); // Abre o menu
-            fadeIn = true;
-            canvasGroup.interactable = true; // Ativa a interatividade do menu durante o fade in
+            t += Time.deltaTime;
+            cg.alpha = Mathf.Lerp(startAlpha, endAlpha, t / duration);
+            yield return null;
         }
-        else
-        {
-            Debug.LogWarning("CanvasGroup component not found on the menu GameObject.");
-        }
-    }
-    public void FadeOutMenu(GameObject menu)
-    { // O "FecharMenuAtual" é chamado no Update, então não precisa chamar aqui
-        canvasGroup = menu.GetComponent<CanvasGroup>();
-        if (canvasGroup != null)
-        {
-            fadeOut = true;
-            canvasGroup.interactable = false; // Desativa a interatividade do menu durante o fade out
-        }
-        else
-        {
-            Debug.LogWarning("CanvasGroup component not found on the menu GameObject.");
-        }
+        cg.alpha = endAlpha;
+        cg.interactable = endAlpha > startAlpha;
+        if (endAlpha == 0f && menuInicial == false) cg.gameObject.SetActive(false);
+        else if (menuInicial == true) FecharMenuAtual();
     }
 
     public void MostrarDica(int TipoDica)

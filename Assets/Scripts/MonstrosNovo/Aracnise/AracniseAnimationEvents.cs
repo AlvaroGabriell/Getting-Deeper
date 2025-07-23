@@ -5,9 +5,12 @@ using UnityEngine;
 public class AracniseAnimationEvents : MonoBehaviour
 {
     public AracniseController controller;
+    GameObject player;
+    float distance = 0;
 
     void Awake()
     {
+        player = FindObjectOfType<PlayerController>().gameObject;
         if (controller == null)
         {
             controller = GetComponentInParent<AracniseController>();
@@ -21,5 +24,33 @@ public class AracniseAnimationEvents : MonoBehaviour
     public void FinalizarTransformacao()
     {
         controller.FinalizarTransformacao();
+    }
+
+    public void PlayAttackSFX()
+    {
+        distance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distance <= 20)
+        {
+            SFXManager.Instance.PlaySFX("AracniseAttack");
+        }
+    }
+    public void PlayStepsSFX()
+    {
+        distance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distance <= 20)
+        {
+            SFXManager.Instance.PlaySFX("AracniseSteps");
+        }
+    }
+    public void PlayTransformSFX()
+    {
+        distance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distance <= 20)
+        {
+            SFXManager.Instance.PlaySFX("AracniseTransform");
+        }
     }
 }
